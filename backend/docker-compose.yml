@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: .
-    command: flask run -h 0.0.0.0
+    command: flask run
     volumes:
       - .:/src/app/
     ports:
