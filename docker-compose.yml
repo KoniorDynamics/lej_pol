@@ -29,7 +29,7 @@ services:
       dockerfile: Dockerfile
     command: flask run
     volumes:
-      - ./backend/.:/src/app/
+      - .:/src/app/
     ports:
       - 5000:5000
     env_file:
