@@ -1,23 +1,11 @@
 import React, {useState} from 'react';
-import background from '../../../assets/images/licznik.png';
+import background from '../../assets/images/licznik.png';
 import './counter.css';
 
-const Counter = ({handleWaterUse}) => {
-
-    const [tapOpenTime, setTapOpenTime] = useState(0);
+const Counter = ({handleWaterUse, openTap, closeTap}) => {
 
     const spendWater = (usageType, time) => {
         handleWaterUse(usageType, time);
-    };
-
-
-    const openTap = () => {
-        setTapOpenTime(Date.now());
-    };
-
-    const closeTap = () => {
-        const tapUsingTime = Date.now() - tapOpenTime;
-        spendWater('tap', tapUsingTime);
     };
 
     return (
@@ -32,11 +20,7 @@ const Counter = ({handleWaterUse}) => {
                 }}/>
                 <area target="" alt="kran" title="kran"
                       coords="477,217,453,190,457,80,486,48,542,52,539,10,602,12,603,44,633,52,630,104,521,116,511,201"
-                      shape="poly" onMouseDown={() => {
-                    openTap()
-                }} onMouseUp={() => {
-                    closeTap()
-                }}/>
+                      shape="poly" onMouseDown={openTap} onMouseUp={closeTap}/>
                 <area target="" alt="prysznic" title="prysznic"
                       coords="721,481,721,394,712,327,713,294,749,256,771,280,832,236,889,257,888,318,831,324,783,372,772,481"
                       shape="poly" onClick={() => {

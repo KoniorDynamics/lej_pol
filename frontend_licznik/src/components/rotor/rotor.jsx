@@ -1,5 +1,5 @@
 import React from 'react';
-import rotorImg from '../../../assets/images/rotor.svg';
+import rotorImg from '../../assets/images/rotor.svg';
 import './rotor.css';
 
 const Rotor = ({rotation}) => {
