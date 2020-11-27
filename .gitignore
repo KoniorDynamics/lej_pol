@@ -3,3 +3,5 @@ frontend/package-lock.json
 frontend/public
 .idea
 *.pyc
+migrations
+backend/lej.pol/lej_pol.db
