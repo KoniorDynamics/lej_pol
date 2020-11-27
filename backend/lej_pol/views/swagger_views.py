@@ -2,7 +2,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 
 bp_swagger = get_swaggerui_blueprint(
     '/swagger',
-    '/swagger/swagger.json',
+    '/static/swagger.json',
     config={
         'app_name': "lej_pol"
     }
