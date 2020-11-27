@@ -23,6 +23,7 @@
 }
 
 .app-container {
+    position: absolute;
     left: 322px;
     top: 175px;
     width: 375px;
