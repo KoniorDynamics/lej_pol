@@ -4,6 +4,7 @@ from flask import Flask
 from flask_migrate import Migrate
 
 from lej_pol.db.db_init import db
+
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -20,6 +21,3 @@ def create_app():
     db.init_app(app)
     migrate = Migrate(app, db)
     return app
-
-
-
