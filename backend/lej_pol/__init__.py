@@ -2,10 +2,13 @@ import os
 
 from flask import Flask
 from flask_migrate import Migrate
+from flask_socketio import SocketIO
 
 from lej_pol.db.db_init import db
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
+
+socketio = SocketIO()
 
 
 def create_app():
@@ -19,5 +22,6 @@ def create_app():
     app.register_blueprint(bp_user)
 
     db.init_app(app)
-    migrate = Migrate(app, db)
+    socketio.init_app(app)
+    Migrate(app, db)
     return app
