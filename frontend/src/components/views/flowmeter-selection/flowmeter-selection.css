@@ -1,3 +1,7 @@
 .flowmeter-selection-container {
     padding-top: 50px;
 }
+
+.flowmeter-title {
+    font-size: 2rem;
+}
