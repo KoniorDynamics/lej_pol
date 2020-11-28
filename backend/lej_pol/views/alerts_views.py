@@ -1,12 +1,51 @@
-from flask import Blueprint
+import json
+from datetime import datetime
 
+from flask import Blueprint, request, render_template, url_for, jsonify
+from werkzeug.utils import redirect
+
+from lej_pol import db
+from lej_pol.forms.alert_forms import AlertLeakForm, AlertImpurityForm
 from lej_pol.models import Alert
 
 bp_alerts = Blueprint("alert", __name__, url_prefix='/alerts')
 
 
 @bp_alerts.route("/", methods=["GET"])
-def home():
+def get_alerts():
     data = Alert.query.all()
-    print(data)
-    return "Alert"
+    return jsonify(json_list=[i.serialize for i in data])
+
+
+@bp_alerts.route('/leak', methods=["GET", "POST"])
+def get_alert_leak():
+    form = AlertLeakForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+        alert = Alert(
+            event_type='leak',
+            event_start=datetime.now(),
+            alert_msg=form.msg.data,
+            location=f"{form.longitude.data},{form.latitude.data}",
+        )
+        db.session.add(alert)
+        db.session.commit()
+
+        return redirect(url_for('alert.get_alerts'))
+    return render_template('alert_leak.html', form=form)
+
+
+@bp_alerts.route("/impurity", methods=["GET", "POST"])
+def get_alert_impurity():
+    form = AlertImpurityForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+        alert = Alert(
+            event_type='impurity',
+            event_start=datetime.now(),
+            location=form.station_name.data,
+            alert_msg=form.description.data
+        )
+        db.session.add(alert)
+        db.session.commit()
+
+        return redirect(url_for('alert.get_alerts'))
+    return render_template('alert_impurity.html', form=form)

@@ -1,6 +1,10 @@
 .notification-board {
-    height: 100%;
-    padding-top: 30px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.notification-board-title {
+    font-size: 1.5rem;
 }
 
 .input-container {

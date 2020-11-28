@@ -1,0 +1,39 @@
+.market-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.market-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.market-points {
+    font-size: 1.25rem;
+}
+
+.market-item {
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.market-item-title {
+    font-size: 1.125rem;
+    margin-bottom: 10px;
+}
+
+.market-item-price {
+    margin-top: 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.market-item-photo {
+    width: 200px;
+    margin-bottom: 20px;
+}
+

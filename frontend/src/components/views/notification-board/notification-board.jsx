@@ -6,45 +6,13 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from "@material-ui/core/IconButton";
 
-const NotificationBoard = () => {
+const NotificationBoard = ({notifications, resetUnreadNotificationNumber}) => {
 
-    const [notifications, setNotifications] = useState([
-        {
-            time: Date.now() - 3600000,
-            type: 'activityStart',
-            title: 'Włączyłeś pralkę!'
-        },
-        {
-            time: Date.now() - 2700000,
-            type: 'activityFinished',
-            title: 'Pranie się skończyło!',
-            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
-        }, {
-            time: Date.now() - 36000000,
-            type: 'activityStart',
-            title: 'Włączyłeś pralkę!'
-        },
-        {
-            time: Date.now() - 27000000,
-            type: 'activityFinished',
-            title: 'Pranie się skończyło!',
-            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
-        }, {
-            time: Date.now() - 360000000,
-            type: 'activityStart',
-            title: 'Włączyłeś pralkę!'
-        },
-        {
-            time: Date.now() - 270000000,
-            type: 'activityFinished',
-            title: 'Pranie się skończyło!',
-            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
-        }
-    ]);
     const [notificationsToShow, setNotificationsToShow] = useState([]);
     const [filterQuery, setFilterQuery] = useState('');
 
     useEffect(() => {
+        resetUnreadNotificationNumber();
         setNotificationsToShow(notifications);
     }, [notifications]);
 
@@ -70,9 +38,45 @@ const NotificationBoard = () => {
         filterNotifications(searchInput);
     };
 
+    const getSeparatedNotifications = (notificationsSet) => {
+        const today = new Date().toLocaleDateString();
+        const tempDate = new Date();
+        tempDate.setDate(tempDate.getDate() - 1);
+        const yesterday = tempDate.toLocaleDateString();
+        const tempNotificationsObject = {};
+        notificationsSet.forEach(
+            notification => {
+                const notificationDate = new Date(notification.timestamp).toLocaleDateString();
+                if (tempNotificationsObject[notificationDate]) {
+                    tempNotificationsObject[notificationDate].push(notification);
+                } else {
+                    tempNotificationsObject[notificationDate] = [notification];
+                }
+            }
+        );
+        const separatedNotificationsArray = [];
+        for (const date in tempNotificationsObject) {
+            let notificationDate;
+            if (date === today) {
+                notificationDate = "Dzisiaj";
+            } else if (date === yesterday) {
+                notificationDate = "Wczoraj"
+            } else {
+                notificationDate = date;
+            }
+            separatedNotificationsArray.push({
+                date: notificationDate,
+                notifications: tempNotificationsObject[date]
+            })
+        }
+        console.log(separatedNotificationsArray);
+        return separatedNotificationsArray;
+    };
+
     return (
         <>
             <div className="notification-board">
+                <p className='notification-board-title'>Twoja tablica</p>
                 <form onSubmit={(e) => handleSearch(e)}>
                     <Paper className="input-container">
                         <InputBase
@@ -84,10 +88,20 @@ const NotificationBoard = () => {
                         </IconButton>
                     </Paper>
                 </form>
-                {notificationsToShow.sort((a, b) => b.time - a.time).map(
-                    (notification, i) => {
+                {getSeparatedNotifications(notificationsToShow.sort((a, b) => b.timestamp - a.timestamp)).map(
+                    (notificationSet, i) => {
                         return (
-                            <Notification notification={notification} key={i}/>
+                            <div key={notificationSet.date}>
+                                <hr className="notification-separator"/>
+                                <p className="notification-date">{notificationSet.date}</p>
+                                {notificationSet.notifications && notificationSet.notifications.map(
+                                    (notification, i) => {
+                                        return (
+                                            <Notification notification={notification} key={i}/>
+                                        )
+                                    }
+                                )}
+                            </div>
                         )
                     }
                 )}

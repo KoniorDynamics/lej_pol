@@ -5,6 +5,18 @@
     padding: 20px;
 }
 
+.card.stats {
+    background: #fcdad5;
+}
+
+.notification-separator {
+    margin-bottom: 0;
+}
+
+.notification-date {
+    font-weight: 600;
+}
+
 .time {
     font-size: 0.75rem;
     align-self: flex-end;
