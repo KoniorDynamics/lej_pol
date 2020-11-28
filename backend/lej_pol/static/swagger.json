@@ -62,7 +62,10 @@
         ],
         "responses": {
           "201": {
-            "description": "Successfully registered."
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            }
           },
           "202": {
             "description": "User already exists. Please Log in."
