@@ -1,19 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import io  from 'socket.io-client';
 import './App.css';
 import Counter from "./components/counter/counter";
 import Rotor from "./components/rotor/rotor.jsx";
 import VolumeMeter from "./components/volume-meter/volume-meter";
-import {websocket} from "./websocket";
 import {flowProfiles} from "./flow-profiles";
 
 function App() {
 
-    websocket.initiateWebsocketConnection();
+
 
     const [isWaterFlowing, setWaterFlow] = useState(false);
     const [rotation, setRotation] = useState(0);
     const [tapFlowInterval, setTapFlowInterval] = useState(0);
     const [totalWaterVolume, setTotalWaterVolume] = useState(3.345765);
+
+    const socketRef = useRef();
+
+        useEffect(() => {
+
+        socketRef.current = io.connect('http://127.0.0.1:5000/api_v1/water_meter', {transports: ['polling', 'websocket']});
+
+        socketRef.current.on('connected', function(data) {
+                    console.log('connected', data)
+                    socketRef.current.emit('connected', {'key': 'val'});
+                });
+
+      }, []);
+
+      const sendMessage = (flow) => {
+        console.log(flow)
+        socketRef.current.emit('msg', flow);
+      };
 
     const handleWaterUse = (waterUsage, time) => {
         if (isWaterFlowing) {
@@ -42,7 +60,7 @@ function App() {
             change += 1;
             setRotation(rotation + change);
             if (change % 100 === 0) {
-                websocket.sendMessage(JSON.stringify({time: Date.now(), flow: flowProfiles[waterUsage](change*10)}));
+                sendMessage(JSON.stringify({time: Date.now(), flow: flowProfiles[waterUsage](change*10)}));
             }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10);
@@ -62,7 +80,7 @@ function App() {
             change += 1;
             setRotation(rotation + change);
             if (change % 100 === 0) {
-                websocket.sendMessage(JSON.stringify({time: Date.now(), flow: flowProfiles.tap()}));
+                sendMessage(JSON.stringify({time: Date.now(), flow: flowProfiles.tap()}));
             }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10));

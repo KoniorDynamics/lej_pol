@@ -12,8 +12,9 @@ const initiateWebsocketConnection = () => {
 };
 
 const sendMessage = (flow) => {
-    console.log(flow)
-    socket.emit('message', flow);
+
+    console.log(flow, socket.connected)
+    socket.emit('msg', flow);
 };
 
 export const websocket = {initiateWebsocketConnection, sendMessage};
