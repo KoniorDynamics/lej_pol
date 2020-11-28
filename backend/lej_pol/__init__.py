@@ -6,6 +6,7 @@ from flask_socketio import SocketIO
 
 from lej_pol.db.db_init import db
 
+
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
 socketio = SocketIO()
@@ -19,6 +20,8 @@ def create_app():
     from .views import bp_main
     from .views import bp_user
     from .views import bp_swagger
+    from lej_pol.views.events_views import bp_events
+    app.register_blueprint(bp_events)
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_user)
     app.register_blueprint(bp_swagger, url_prefix='/swagger')
