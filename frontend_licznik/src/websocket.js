@@ -1,9 +1,9 @@
 import io from 'socket.io-client';
 
-const socket = io().connect('http://127.0.0.1:5000');
+const socket = io().connect('http://127.0.0.1:5000/api_v1/water_meter');
 
 const initiateWebsocketConnection = () => {
-    socket.on('open', () => {
+    socket.on('connected', () => {
         console.log('WebSocket Client Connected');
     });
     socket.on('event', (message) => {
@@ -12,6 +12,7 @@ const initiateWebsocketConnection = () => {
 };
 
 const sendMessage = (flow) => {
+    console.log(flow)
     socket.emit('message', flow);
 };
 
