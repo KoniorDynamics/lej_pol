@@ -9,10 +9,13 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
     flex-direction: column;
 }
 
 div.username-input {
+    margin-bottom: 20px;
+}
+
+button.authentication-button {
     margin-bottom: 20px;
 }
