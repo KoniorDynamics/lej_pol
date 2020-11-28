@@ -1,6 +1,7 @@
 .notification-board {
     height: 100%;
     padding-top: 70px;
+    padding-bottom: 70px;
 }
 
 .notification-board-title {

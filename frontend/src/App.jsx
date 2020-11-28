@@ -14,6 +14,7 @@ import Authentication from "./components/views/authentication/authentication";
 import FlowmeterSelection from "./components/views/flowmeter-selection/flowmeter-selection";
 import Header from "./components/shared/header/header";
 import UserProfile from "./components/views/user-profile/user-profile";
+import Market from "./components/views/market/market";
 
 function App() {
 
@@ -48,6 +49,9 @@ function App() {
                             </Route>
                             <Route path="/profile">
                                 <UserProfile/>
+                            </Route>
+                            <Route path="/market">
+                                <Market/>
                             </Route>
                         </Switch>
                     </Container>
