@@ -69,7 +69,6 @@ const NotificationBoard = ({notifications, resetUnreadNotificationNumber}) => {
                 notifications: tempNotificationsObject[date]
             })
         }
-        console.log(separatedNotificationsArray);
         return separatedNotificationsArray;
     };
 

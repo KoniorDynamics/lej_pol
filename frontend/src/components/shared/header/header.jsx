@@ -15,7 +15,7 @@ const Header = ({notifications, isAuthenticated}) => {
     return (
         <div className="header">
             <img className='header-logo' src={logo}/>
-            {(notifications && isAuthenticated) ? <div className="notification-icon-wrapper">
+            {(notifications) ? <div className="notification-icon-wrapper">
                 <NewReleasesIcon className="notifications-icon" color="action" fontSize={'large'}
                                  onClick={() => {
                                      navigateToBoard();

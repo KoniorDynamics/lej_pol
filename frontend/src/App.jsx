@@ -15,11 +15,19 @@ import FlowmeterSelection from "./components/views/flowmeter-selection/flowmeter
 import Header from "./components/shared/header/header";
 import UserProfile from "./components/views/user-profile/user-profile";
 import Market from "./components/views/market/market";
+import Modal from "./components/shared/modal/modal";
+import Button from "@material-ui/core/Button";
 
 function App() {
 
     const [isAuthenticated, setAuthenticationState] = useState(false);
     const [unreadNotificationsNumber, setUnreadNotificationsNumber] = useState(0);
+    const [showModal, setModalState] = useState(false);
+    const [firstFetch, setFirstFetchState] = useState(true);
+    const [modalConfig, setModalConfig] = useState({
+        title: 'Elo elo 3 2 0',
+        content: (<p>Fantastyczny modal</p>)
+    });
     const [notifications, setNotifications] = useState([
         {
             timestamp: Date.now() - 3600000,
@@ -55,6 +63,24 @@ function App() {
     ]);
 
     useEffect(() => {
+        if (firstFetch) {
+            setFirstFetchState(false);
+            return;
+        }
+        setModalConfig({
+            title: 'Otrzymałeś nowe powiadomienie!',
+            content: (
+                <div style={{display: 'flex', justifyContent: 'space-around', width: '100%', margin: '10px 0'}}>
+                    <Button variant="contained" color="primary" onClick={() => {
+                        closeModal();
+                    }}>Ok!</Button>
+                </div>
+            )
+        });
+        setModalState(true);
+    }, [notifications]);
+
+    useEffect(() => {
         setTimeout(() => {
             const newNotification = {
                 timestamp: Date.now() - 50,
@@ -70,22 +96,30 @@ function App() {
                     ['26.11', 0.19],
                     ['27.11', 0.18],
                 ]
-            }
+            };
             if (!window.location.href.includes('board')) {
                 setUnreadNotificationsNumber(1);
             }
             setNotifications([...notifications, newNotification]);
-        }, 8000)
-        if (!window.location.href.includes('authenticate') && !isAuthenticated) {
-            window.location.href = '/authenticate';
-        }
+        }, 4000)
     }, []);
+
+    const showMenu = () => {
+        return !window.location.href.includes('authenticate') && !window.location.href.includes('flowmeter-selection');
+    };
+
+    const closeModal = () => {
+        setModalState(false);
+    };
 
     return (
         <Wrapper app={(() => {
             return (
                 <Router>
                     <Header notifications={unreadNotificationsNumber} isAuthenticated={isAuthenticated}></Header>
+                    <Modal open={showModal} handleClose={() => {
+                        closeModal();
+                    }} modalTitle={modalConfig.title} modalContent={modalConfig.content}></Modal>
                     <Container className="content-container">
                         <Switch>
                             <Route
@@ -120,7 +154,10 @@ function App() {
                             </Route>
                         </Switch>
                     </Container>
-                    {isAuthenticated && <BottomNav setAuthenticationState={setAuthenticationState}></BottomNav>}
+                    {showMenu() ?
+                        <BottomNav setAuthenticationState={setAuthenticationState}></BottomNav>
+                        :
+                        null}
                 </Router>
             )
         })()}></Wrapper>
