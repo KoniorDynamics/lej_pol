@@ -4,8 +4,8 @@ from lej_pol import db
 
 user_event = db.Table(
     'user_event',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.user_id')),
-    db.Column('event_id', db.Integer, db.ForeignKey('event.event_id'))
+    db.Column('user_id', db.Integer, db.ForeignKey('User.user_id')),
+    db.Column('event_id', db.Integer, db.ForeignKey('Event.event_id'))
 
 )
 

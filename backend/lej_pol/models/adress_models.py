@@ -9,4 +9,4 @@ class Address(db.Model):
     flat_number = db.Column(db.Integer)
     longitude = db.Column(db.REAL)
     latitude = db.Column(db.REAL)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('User.user_id'))

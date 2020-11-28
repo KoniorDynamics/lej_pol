@@ -8,4 +8,4 @@ class Alert(db.Model):
     event_type = db.Column(db.String(200))
     event_start = db.Column(db.DateTime, default=datetime.utcnow())
     leak_detection = db.Column(db.Boolean)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('User.user_id'))
