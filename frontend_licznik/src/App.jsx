@@ -20,16 +20,15 @@ function App() {
             return;
         }
         let timeout;
-        console.log(waterUsage, time);
         switch (waterUsage) {
             case 'washingMachine':
-                timeout = 3000;
+                timeout = 17000;
                 break;
             case 'dishWashingMachine':
-                timeout = 2000;
+                timeout = 24000;
                 break;
             case 'shower':
-                timeout = 1000;
+                timeout = 8000;
                 break;
             case 'tap':
                 timeout = time;
@@ -42,7 +41,9 @@ function App() {
         const flowInterval = setInterval(() => {
             change += 1;
             setRotation(rotation + change);
-            websocket.sendMessage(flowProfiles.washingMachine(change*10));
+            if (change % 100 === 0) {
+                websocket.sendMessage(JSON.stringify({time: Date.now(), flow: flowProfiles[waterUsage](change*10)}));
+            }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10);
         setTimeout(() => {
@@ -60,6 +61,9 @@ function App() {
         setTapFlowInterval(setInterval(() => {
             change += 1;
             setRotation(rotation + change);
+            if (change % 100 === 0) {
+                websocket.sendMessage(JSON.stringify({time: Date.now(), flow: flowProfiles.tap()}));
+            }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10));
     };

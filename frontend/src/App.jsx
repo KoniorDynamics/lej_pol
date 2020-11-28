@@ -7,8 +7,9 @@ import {
     Route
 } from "react-router-dom";
 import Home from "./components/views/home/home";
-import Placeholder from "./components/views/placeholder/placeholder";
 import BottomNav from './components/shared/bottom-nav/bottom-nav'
+import NotificationBoard from "./components/views/notification-board/notification-board";
+import Container from "@material-ui/core/Container";
 
 function App() {
 
@@ -16,16 +17,17 @@ function App() {
         <Wrapper app={(() => {
             return (
                 <Router>
-                    <div>Fajnie fest</div>
+                    <Container className="content-container">
+                        <Switch>
+                            <Route path="/home">
+                                <Home/>
+                            </Route>
+                            <Route path="/board">
+                                <NotificationBoard/>
+                            </Route>
+                        </Switch>
+                    </Container>
                     <BottomNav></BottomNav>
-                    <Switch>
-                        <Route path="/home">
-                            <Home />
-                        </Route>
-                        <Route path="/placeholder">
-                            <Placeholder />
-                        </Route>
-                    </Switch>
                 </Router>
             )
         })()}></Wrapper>
