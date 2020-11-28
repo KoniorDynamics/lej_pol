@@ -1,9 +1,12 @@
 import React from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import {AccessAlarm, AcUnit} from "@material-ui/icons";
+import {AccessAlarm} from "@material-ui/icons";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ShopIcon from '@material-ui/icons/Shop';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
@@ -31,10 +34,10 @@ const BottomNav = ({setAuthenticationState}) => {
             showLabels
             className={classes.root}
         >
-            <BottomNavigationAction label="Board" value="board" icon={<AccessAlarm/>}/>
-            <BottomNavigationAction label="Logout" icon={<AcUnit/>} onClick={() => {
-                logout();
-            }}/>
+            <BottomNavigationAction label="Powiadomienia" value="board" icon={<AccessAlarm/>}/>
+            <BottomNavigationAction label="Profil" value="profile" icon={<AccountCircleIcon/>}/>
+            <BottomNavigationAction label="Market" value="market" icon={<ShopIcon/>}/>
+            <BottomNavigationAction label="Wyloguj" icon={<ExitToAppIcon/>} onClick={logout}/>
         </BottomNavigation>
     )
 };

@@ -12,6 +12,7 @@ import NotificationBoard from "./components/views/notification-board/notificatio
 import Container from "@material-ui/core/Container";
 import Authentication from "./components/views/authentication/authentication";
 import FlowmeterSelection from "./components/views/flowmeter-selection/flowmeter-selection";
+import Header from "./components/shared/header/header";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Wrapper app={(() => {
             return (
                 <Router>
+                    <Header></Header>
                     <Container className="content-container">
                         <Switch>
                             <Route

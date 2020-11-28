@@ -73,6 +73,7 @@ const NotificationBoard = () => {
     return (
         <>
             <div className="notification-board">
+                <p className='notification-board-title'>Twoja tablica</p>
                 <form onSubmit={(e) => handleSearch(e)}>
                     <Paper className="input-container">
                         <InputBase
