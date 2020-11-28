@@ -1,0 +1,13 @@
+.main-wrapper {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.counter-image {
+    width: 1000px;
+}
+
+area {
+    cursor: pointer;
+}
