@@ -13,6 +13,7 @@ import Container from "@material-ui/core/Container";
 import Authentication from "./components/views/authentication/authentication";
 import FlowmeterSelection from "./components/views/flowmeter-selection/flowmeter-selection";
 import Header from "./components/shared/header/header";
+import UserProfile from "./components/views/user-profile/user-profile";
 
 function App() {
 
@@ -44,6 +45,9 @@ function App() {
                             </Route>
                             <Route path="/board">
                                 <NotificationBoard/>
+                            </Route>
+                            <Route path="/profile">
+                                <UserProfile/>
                             </Route>
                         </Switch>
                     </Container>

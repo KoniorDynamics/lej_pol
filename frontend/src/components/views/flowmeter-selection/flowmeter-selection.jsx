@@ -25,7 +25,7 @@ const FlowmeterSelection = () => {
                 <Spinner title={'Szukamy Twoich smart-liczników'}></Spinner>
                 :
                 <div className="flowmeter-selection-container">
-                    <p className='flowmeter-title'>Twoje smart-liczniki:</p>
+                    <p className='flowmeter-title'>Wybierz smart-licznik:</p>
                     <Card className='card' onClick={selectFlowmeter}>
                         <p className="title">Flowmeter 1</p>
                         <p className="details">Bardzo dobry fest Flowmeter</p>
