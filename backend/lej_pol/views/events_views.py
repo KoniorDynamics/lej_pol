@@ -9,4 +9,4 @@ bp_events = Blueprint("events", __name__, url_prefix='/events')
 def home():
     data = Event.query.all()
     print(data)
-    return "init"
+    return "Events"
