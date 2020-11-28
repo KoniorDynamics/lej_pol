@@ -1,0 +1,118 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Lej_pol"
+  },
+  "paths": {
+    "/user/login": {
+      "post": {
+        "tags": [
+          "Requests"
+        ],
+        "summary": "Login user",
+        "requestBody": {
+          "description": "Login Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            }
+          },
+          "401": {
+            "description": "Could not verify"
+          },
+          "403": {
+            "description": "Email or Password is incorrect"
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "tags": [
+          "Requests"
+        ],
+        "summary": "Create a new user",
+        "requestBody": {
+          "description": "Signup Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/signupRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully registered."
+          },
+          "202": {
+            "description": "User already exists. Please Log in."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "token": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "signupRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "format": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "loginRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "format": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      }
+    }
+  }
+}
+
