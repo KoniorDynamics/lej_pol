@@ -1,0 +1,14 @@
+.notification-board {
+    height: 100%;
+    padding-top: 30px;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-input {
+    margin-left: 12px;
+}

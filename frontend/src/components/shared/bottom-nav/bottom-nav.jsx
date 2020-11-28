@@ -28,7 +28,7 @@ const BottomNav = () => {
             className={classes.root}
         >
             <BottomNavigationAction label="Home" value="home" icon={<AcUnit/>}/>
-            <BottomNavigationAction label="Placeholder" value="placeholder" icon={<AccessAlarm/>}/>
+            <BottomNavigationAction label="Board" value="board" icon={<AccessAlarm/>}/>
         </BottomNavigation>
     )
 };
