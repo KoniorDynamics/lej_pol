@@ -11,18 +11,29 @@ services:
 #      - '/app/node_modules'
 #    ports:
 #      - 3002:3002
-  mobile_app:
-    container_name: frontend
+#  mobile_app:
+#    container_name: frontend
+#    build:
+#      context: frontend/.
+#      dockerfile: Dockerfile
+#    volumes:
+#      - './frontend/.:/app'
+#      - '/app/node_modules'
+#    ports:
+#      - 3001:3000
+#    environment:
+#      - CHOKIDAR_USEPOLLING=true
+  deploy_ml:
     build:
-      context: frontend/.
+      context: deploy_ML/.
       dockerfile: Dockerfile
+    command: flask run
     volumes:
-      - './frontend/.:/app'
-      - '/app/node_modules'
+      - .:/src/app/
     ports:
-      - 3001:3000
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+      - 8000:8000
+    env_file:
+      - ./deploy_ML/.env.dev
   backend:
     build:
       context: backend/.
