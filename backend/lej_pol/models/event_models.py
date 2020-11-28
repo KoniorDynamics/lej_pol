@@ -1,4 +1,13 @@
+from sqlalchemy.orm import relationship
+
 from lej_pol import db
+
+user_event = db.Table(
+    'user_event',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.user_id')),
+    db.Column('event_id', db.Integer, db.ForeignKey('event.event_id'))
+
+)
 
 
 class Event(db.Model):
