@@ -13,22 +13,29 @@ const useStyles = makeStyles({
     },
 });
 
-const BottomNav = () => {
+const BottomNav = ({setAuthenticationState}) => {
 
     const history = useHistory();
     const classes = useStyles();
 
+    const logout = () => {
+        setAuthenticationState(false);
+        history.push('/');
+
+    };
+
     return (
         <BottomNavigation
             onChange={(event, newValue) => {
-                console.log(newValue);
                 history.push(newValue);
             }}
             showLabels
             className={classes.root}
         >
-            <BottomNavigationAction label="Home" value="home" icon={<AcUnit/>}/>
-            <BottomNavigationAction label="Placeholder" value="placeholder" icon={<AccessAlarm/>}/>
+            <BottomNavigationAction label="Board" value="board" icon={<AccessAlarm/>}/>
+            <BottomNavigationAction label="Logout" icon={<AcUnit/>} onClick={() => {
+                logout();
+            }}/>
         </BottomNavigation>
     )
 };

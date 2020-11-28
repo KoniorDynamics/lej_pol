@@ -1,0 +1,9 @@
+.content-container {
+    overflow: scroll;
+    background: #CFE8FC;
+    height: 100%;
+    box-sizing: border-box;}
+
+.content-container::-webkit-scrollbar {
+    display: none;
+}

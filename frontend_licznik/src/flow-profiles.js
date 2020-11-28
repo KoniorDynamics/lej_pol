@@ -1,9 +1,17 @@
 const tap = () => {
-    return 20;
+    return 0.00027;
 };
 
 const washingMachine = (time) => {
-    return Math.cos(4/3 * Math.PI * time / 1000 - (Math.PI)) + 1;
+    return Math.abs(Math.cos((time + 8) * 3 / 8)) * 0.00032;
 };
 
-export const flowProfiles = {tap, washingMachine};
+const dishWashingMachine = (time) => {
+    return Math.abs(Math.cos((time % 7) / 3)) * 0.00032;
+};
+
+const shower = (time) => {
+    return Math.abs(Math.cos(time/3)) * 0.00029;
+};
+
+export const flowProfiles = {tap, washingMachine, dishWashingMachine, shower};
