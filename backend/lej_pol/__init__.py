@@ -16,11 +16,16 @@ def create_app():
                 instance_relative_config=True
                 )
     app.config.from_pyfile(os.path.join(os.path.dirname(base_dir), 'config', 'deployment.py'))
+    app.config['SECRET_KEY'] = b'\xc0\xb1\x16\x98\x86wI\xf6$_\xe8\x00)\x19\x81b'
+
     from .views import bp_main
     from .views import bp_user
     from .views import bp_swagger
+    from .events.events import ws
+
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_user)
+    app.register_blueprint(ws)
     app.register_blueprint(bp_swagger, url_prefix='/swagger')
 
     db.init_app(app)

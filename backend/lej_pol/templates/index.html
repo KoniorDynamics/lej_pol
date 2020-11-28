@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var socket;
+            $(document).ready(function(){
+            console.log('it works3')
+                socket = io.connect('http://' + document.domain + ':' + location.port + '/api_v1/water_meter');
+                socket.emit('message', {'key': 'val'});
+                socket.on('connected', function() {
+                    console.log('connected')
+                    socket.emit('connected', {'key': 'val'});
+                });
+                socket.on('status', function(data) {
+                    console.log(data.msg)
+
+                });
+                socket.on('message', function(data) {
+                    console.log(data.msg)
+                });
+
+                document.querySelector('button').addEventListener('click', () => {
+                    console.log('send')
+                     socket.emit('connected', {'key': 'val'});
+                })
+            });
+
+        </script>
+    </head>
+    <body>
+    <button>it works</button>
+
+    </body>
+</html>
