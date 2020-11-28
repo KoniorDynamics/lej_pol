@@ -3,8 +3,12 @@ import './App.css';
 import Counter from "./components/counter/counter";
 import Rotor from "./components/rotor/rotor.jsx";
 import VolumeMeter from "./components/volume-meter/volume-meter";
+import {websocket} from "./websocket";
+import {flowProfiles} from "./flow-profiles";
 
 function App() {
+
+    websocket.initiateWebsocketConnection();
 
     const [isWaterFlowing, setWaterFlow] = useState(false);
     const [rotation, setRotation] = useState(0);
@@ -38,6 +42,7 @@ function App() {
         const flowInterval = setInterval(() => {
             change += 1;
             setRotation(rotation + change);
+            websocket.sendMessage(flowProfiles.washingMachine(change*10));
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10);
         setTimeout(() => {
