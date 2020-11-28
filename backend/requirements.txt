@@ -5,6 +5,7 @@ cryptography==3.2.1
 dnspython==1.16.0
 eventlet==0.29.1
 Flask==1.1.2
+Flask-Cors==3.0.9
 Flask-Migrate==2.5.3
 Flask-SocketIO==4.3.1
 Flask-SQLAlchemy==2.4.4
