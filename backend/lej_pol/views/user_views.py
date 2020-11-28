@@ -63,6 +63,10 @@ def signup():
         db.session.add(user)
         db.session.commit()
 
-        return make_response('Successfully registered.', 201)
+        token = jwt.encode({
+            'email': user.email,
+            'exp': datetime.utcnow() + timedelta(minutes=30)
+        }, SECRET_KEY)
+        return make_response(jsonify({'token': token.decode('UTF-8')}), 201)
     else:
         return make_response('User already exists. Please Log in.', 202)
