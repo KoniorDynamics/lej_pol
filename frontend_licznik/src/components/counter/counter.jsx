@@ -12,17 +12,17 @@ const Counter = ({handleWaterUse, openTap, closeTap}) => {
         <div className='main-wrapper'>
             <img className='counter-image' src={background} useMap='#map'/>
             <map name="map">
-                <area target="" alt="pralka" title="pralka" coords="96,165,262,384" shape="rect" onClick={() => {
+                <area target="" alt="pralka" title="pralka" coords="60,100,158,231" shape="rect" onClick={() => {
                     spendWater('washingMachine')
                 }}/>
-                <area target="" alt="zmywarka" title="zmywarka" coords="995,679,796,470" shape="rect" onClick={() => {
+                <area target="" alt="zmywarka" title="zmywarka" coords="477,283,597,406" shape="rect" onClick={() => {
                     spendWater('dishWashingMachine')
                 }}/>
                 <area target="" alt="kran" title="kran"
-                      coords="477,217,453,190,457,80,486,48,542,52,539,10,602,12,603,44,633,52,630,104,521,116,511,201"
+                      coords="282,128,275,113,273,49,290,31,326,32,326,6,365,8,361,30,379,30,378,67,311,66,308,116,299,126"
                       shape="poly" onMouseDown={openTap} onMouseUp={closeTap}/>
                 <area target="" alt="prysznic" title="prysznic"
-                      coords="721,481,721,394,712,327,713,294,749,256,771,280,832,236,889,257,888,318,831,324,783,372,772,481"
+                      coords="431,287,435,231,427,171,447,155,469,169,493,144,529,146,531,188,497,199,466,221,464,286"
                       shape="poly" onClick={() => {
                     spendWater('shower')
                 }}/>

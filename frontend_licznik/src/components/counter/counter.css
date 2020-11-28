@@ -1,11 +1,11 @@
 .main-wrapper {
-    padding: 40px;
+    padding-top: 20px;
     display: flex;
     justify-content: center;
 }
 
 .counter-image {
-    width: 1000px;
+    width: 600px;
 }
 
 area {
