@@ -45,7 +45,6 @@ const NotificationBoard = () => {
     const [filterQuery, setFilterQuery] = useState('');
 
     useEffect(() => {
-        console.log('effect');
         setNotificationsToShow(notifications);
     }, [notifications]);
 
