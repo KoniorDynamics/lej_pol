@@ -1,6 +1,6 @@
-import io from 'socket.io-client';
+import socketIOClient from 'socket.io-client';
 
-const socket = io().connect('http://127.0.0.1:5000/api_v1/water_meter');
+const socket = socketIOClient('http://127.0.0.1:5000/api_v1/water_meter');
 
 const initiateWebsocketConnection = () => {
     socket.on('connected', () => {
