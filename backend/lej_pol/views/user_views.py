@@ -41,7 +41,7 @@ def login():
         return make_response(jsonify({'token': token.decode('UTF-8')}), 201)
 
     return make_response(
-        'Could not verify',
+        'Email or Password is incorrect',
         403,
         {'WWW-Authenticate': 'Basic realm ="Email or Password is incorrect"'}
     )

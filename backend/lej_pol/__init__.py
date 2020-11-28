@@ -18,8 +18,10 @@ def create_app():
     app.config.from_pyfile(os.path.join(os.path.dirname(base_dir), 'config', 'deployment.py'))
     from .views import bp_main
     from .views import bp_user
+    from .views import bp_swagger
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_user)
+    app.register_blueprint(bp_swagger, url_prefix='/swagger')
 
     db.init_app(app)
     socketio.init_app(app)
