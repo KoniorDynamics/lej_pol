@@ -6,7 +6,7 @@ const Notification = ({notification}) => {
 
     return (
         <Card className='card'>
-            <span className="time">{new Date(notification.time).toLocaleString()}</span>
+            <span className="time">{new Date(notification.timestamp).toLocaleTimeString()}</span>
             <p className="title">{notification.title}</p>
             {notification.details && <p className="details">{notification.details}</p>}
         </Card>
