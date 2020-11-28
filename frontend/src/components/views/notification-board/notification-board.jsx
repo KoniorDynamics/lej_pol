@@ -6,45 +6,13 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from "@material-ui/core/IconButton";
 
-const NotificationBoard = () => {
+const NotificationBoard = ({notifications, resetUnreadNotificationNumber}) => {
 
-    const [notifications, setNotifications] = useState([
-        {
-            timestamp: Date.now() - 3600000,
-            type: 'activityStart',
-            title: 'Włączyłeś pralkę!'
-        },
-        {
-            timestamp: Date.now() - 2700000,
-            type: 'activityFinished',
-            title: 'Pranie się skończyło!',
-            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
-        }, {
-            timestamp: Date.now() - 36000000,
-            type: 'activityStart',
-            title: 'Włączyłeś pralkę!'
-        },
-        {
-            timestamp: Date.now() - 27000000,
-            type: 'activityFinished',
-            title: 'Pranie się skończyło!',
-            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
-        }, {
-            timestamp: Date.now() - 360000000,
-            type: 'activityStart',
-            title: 'Włączyłeś pralkę!'
-        },
-        {
-            timestamp: Date.now() - 270000000,
-            type: 'activityFinished',
-            title: 'Pranie się skończyło!',
-            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
-        }
-    ]);
     const [notificationsToShow, setNotificationsToShow] = useState([]);
     const [filterQuery, setFilterQuery] = useState('');
 
     useEffect(() => {
+        resetUnreadNotificationNumber();
         setNotificationsToShow(notifications);
     }, [notifications]);
 

@@ -13,3 +13,29 @@
 .header-logo {
     width: 30px;
 }
+
+.notification-icon-wrapper {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+}
+
+.notifications-icon:hover {
+    cursor: pointer;
+}
+
+.notifications-amount {
+    background: red;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    position: absolute;
+    top: 3px;
+    right: -3px;
+}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Wrapper from "./components/web-wrapper/web-wrapper";
 import {
@@ -19,12 +19,73 @@ import Market from "./components/views/market/market";
 function App() {
 
     const [isAuthenticated, setAuthenticationState] = useState(false);
+    const [unreadNotificationsNumber, setUnreadNotificationsNumber] = useState(0);
+    const [notifications, setNotifications] = useState([
+        {
+            timestamp: Date.now() - 3600000,
+            type: 'activityStart',
+            title: 'Włączyłeś pralkę!'
+        },
+        {
+            timestamp: Date.now() - 2700000,
+            type: 'activityFinished',
+            title: 'Pranie się skończyło!',
+            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
+        }, {
+            timestamp: Date.now() - 36000000,
+            type: 'activityStart',
+            title: 'Włączyłeś pralkę!'
+        },
+        {
+            timestamp: Date.now() - 27000000,
+            type: 'activityFinished',
+            title: 'Pranie się skończyło!',
+            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
+        }, {
+            timestamp: Date.now() - 360000000,
+            type: 'activityStart',
+            title: 'Włączyłeś pralkę!'
+        },
+        {
+            timestamp: Date.now() - 270000000,
+            type: 'activityFinished',
+            title: 'Pranie się skończyło!',
+            details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
+        }
+    ]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            const newNotification = {
+                timestamp: Date.now() - 50,
+                type: 'stats',
+                title: 'Zobacz swoje zużycie wody w tym tygodniu:',
+                data: [
+                    ['Data', 'Zużycie wody'],
+                    ['21.11', 0.12],
+                    ['22.11', 0.12],
+                    ['23.11', 0.16],
+                    ['24.11', 0.09],
+                    ['25.11', 0.07],
+                    ['26.11', 0.19],
+                    ['27.11', 0.18],
+                ]
+            }
+            if (!window.location.href.includes('board')) {
+                setUnreadNotificationsNumber(1);
+            }
+            setNotifications([...notifications, newNotification]);
+        }, 8000)
+        if (!window.location.href.includes('authenticate') && !isAuthenticated) {
+            window.location.href = '/authenticate';
+        }
+    }, []);
 
     return (
         <Wrapper app={(() => {
             return (
                 <Router>
-                    <Header></Header>
+                    <Header notifications={unreadNotificationsNumber} isAuthenticated={isAuthenticated}></Header>
                     <Container className="content-container">
                         <Switch>
                             <Route
@@ -33,8 +94,8 @@ function App() {
                                 render={() => {
                                     return (
                                         isAuthenticated ?
-                                            <Redirect to="/board" /> :
-                                            <Redirect to="/authenticate" />
+                                            <Redirect to="/board"/> :
+                                            <Redirect to="/authenticate"/>
                                     )
                                 }}
                             />
@@ -45,7 +106,11 @@ function App() {
                                 <FlowmeterSelection/>
                             </Route>
                             <Route path="/board">
-                                <NotificationBoard/>
+                                <NotificationBoard notifications={notifications} resetUnreadNotificationNumber={
+                                    () => {
+                                        setUnreadNotificationsNumber(0)
+                                    }
+                                }/>
                             </Route>
                             <Route path="/profile">
                                 <UserProfile/>

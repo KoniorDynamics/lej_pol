@@ -5,6 +5,10 @@
     padding: 20px;
 }
 
+.card.stats {
+    background: #fcdad5;
+}
+
 .notification-separator {
     margin-bottom: 0;
 }
