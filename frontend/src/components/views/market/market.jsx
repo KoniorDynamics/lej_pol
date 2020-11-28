@@ -68,7 +68,7 @@ const Market = () => {
                                 <p className="market-item-price">{marketItem.price}</p>
                                 <img className="market-item-photo" src={marketItem.photoUrl}/>
                                 <Button onClick={() => {
-                                    buyAnItem(marketItem.id);
+                                    buyAnItem(marketItem.price);
                                 }} disabled={marketItem.price > points} variant="contained" color="primary">Bier!</Button>
                             </Card>
                         )

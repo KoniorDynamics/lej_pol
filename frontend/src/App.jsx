@@ -25,8 +25,8 @@ function App() {
     const [showModal, setModalState] = useState(false);
     const [firstFetch, setFirstFetchState] = useState(true);
     const [modalConfig, setModalConfig] = useState({
-        title: 'Elo elo 3 2 0',
-        content: (<p>Fantastyczny modal</p>)
+        title: '',
+        content: null
     });
     const [notifications, setNotifications] = useState([
         {
@@ -81,7 +81,9 @@ function App() {
     }, [notifications]);
 
     useEffect(() => {
-        setTimeout(() => {
+        let i = 0;
+        setInterval(() => {
+            i++;
             const newNotification = {
                 timestamp: Date.now() - 50,
                 type: 'stats',
@@ -98,10 +100,10 @@ function App() {
                 ]
             };
             if (!window.location.href.includes('board')) {
-                setUnreadNotificationsNumber(1);
+                setUnreadNotificationsNumber(unreadNotificationsNumber + i);
             }
             setNotifications([...notifications, newNotification]);
-        }, 4000)
+        }, 16000)
     }, []);
 
     const showMenu = () => {
