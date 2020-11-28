@@ -13,11 +13,13 @@ const Authentication = ({setAuthenticationState}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
 
     const authenticate = (event) => {
         event.preventDefault();
         axios.post('http://127.0.0.1:5000/user/login', {email, password})
-            .then(() => {
+            .then((response) => {
+                setToken(response.data.token);
                 setAuthenticationState(true);
                 history.push('flowmeter-selection');
             })
