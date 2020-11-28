@@ -1,15 +1,13 @@
 import os
 
 import joblib
-from flask import Flask, request, jsonify
 import pandas as pd
 
 
-app = Flask(__name__)
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
 
-model = joblib.load(open(os.path.join(base_dir, 'models', 'model_whole_test.joblib'), 'rb'))
+model = joblib.load(open(os.path.join(base_dir, 'models_ml', 'model_whole_test.joblib'), 'rb'))
 
 SANITARY_EQUIPMENT = {
     0: "tap",
@@ -25,9 +23,7 @@ SANITARY_EQUIPMENT = {
 }
 
 
-@app.route('/model_ml', methods=['POST'])
-def predict():
-    data = request.get_json(force=True)
+def predict(data):
     df = pd.DataFrame(data['data'])
     prediction = model.predict_proba(df)[0].tolist()
     if max(prediction) >= 0.80:
@@ -45,5 +41,4 @@ def predict():
             'element1': SANITARY_EQUIPMENT[index1],
             'element2': SANITARY_EQUIPMENT[index2]
         }
-    return jsonify(output)
-
+    return output

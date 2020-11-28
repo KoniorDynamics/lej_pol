@@ -26,6 +26,7 @@ def create_app():
     from .views import bp_user
     from .views import bp_swagger
     from .views.events_views import bp_events
+    from .views.notification_views import bp_notification
     from .events.events import ws
 
     app.register_blueprint(bp_group)
@@ -33,6 +34,8 @@ def create_app():
     app.register_blueprint(bp_address)
     app.register_blueprint(bp_user)
     app.register_blueprint(bp_events)
+    app.register_blueprint(bp_notification)
+    app.register_blueprint(bp_main)
     app.register_blueprint(ws)
     app.register_blueprint(bp_swagger, url_prefix='/swagger')
 
