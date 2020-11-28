@@ -42,7 +42,9 @@ function App() {
         const flowInterval = setInterval(() => {
             change += 1;
             setRotation(rotation + change);
-            websocket.sendMessage(flowProfiles.washingMachine(change*10));
+            if (change % 10 === 0) {
+                websocket.sendMessage(flowProfiles.washingMachine(change*10));
+            }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10);
         setTimeout(() => {
