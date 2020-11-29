@@ -24,8 +24,8 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-
-          <a class="navbar-brand" href="#">Zgłaszanie Nieszczelności Układu</a>
+                   <a class="navbar-brand" href="{{ url_for('alert.get_alert_impurity') }}">Zgłaszanie zanieczyszczenia wody</a>
+             <a class="navbar-brand" href="{{ url_for('alert.get_alert_leak') }}">Zgłaszanie Nieszczelności Układu</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 

@@ -52,7 +52,6 @@ const Market = () => {
 
     const buyAnItem = (itemPrice) => {
         setPoints(points - itemPrice);
-        alert('Graty kupiłeś sobie cośtam');
     };
 
     return (
@@ -68,8 +67,8 @@ const Market = () => {
                                 <p className="market-item-price">{marketItem.price}</p>
                                 <img className="market-item-photo" src={marketItem.photoUrl}/>
                                 <Button onClick={() => {
-                                    buyAnItem(marketItem.id);
-                                }} disabled={marketItem.price > points} variant="contained" color="primary">Bier!</Button>
+                                    buyAnItem(marketItem.price);
+                                }} disabled={marketItem.price > points} variant="contained" color="primary">Biere!</Button>
                             </Card>
                         )
                     }

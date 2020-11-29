@@ -22,7 +22,8 @@ const NotificationBoard = ({notifications, resetUnreadNotificationNumber}) => {
             notification => {
                 let filteringResult;
                 for (const property in notification) {
-                    if (notification[property] && notification[property].includes && notification[property].includes(filterQuery)) {
+                    if ((notification[property] && notification[property].includes && notification[property].includes(filterQuery)) ||
+                        (notification[property] && notification[property].toLowerCase && notification[property].toLowerCase().includes(filterQuery.toLowerCase()))) {
                         filteringResult = true;
                     }
                 }
@@ -69,7 +70,6 @@ const NotificationBoard = ({notifications, resetUnreadNotificationNumber}) => {
                 notifications: tempNotificationsObject[date]
             })
         }
-        console.log(separatedNotificationsArray);
         return separatedNotificationsArray;
     };
 

@@ -1,0 +1,8 @@
+.modal {
+    width: 80%;
+}
+
+.modal-container {
+    width: 300px !important;
+    padding: 10px;
+}

@@ -9,13 +9,13 @@ const Header = ({notifications, isAuthenticated}) => {
     const history = useHistory();
 
     const navigateToBoard = () => {
-        history.push('/board');
+        history.push('/authenticated/board');
     };
 
     return (
         <div className="header">
             <img className='header-logo' src={logo}/>
-            {(notifications && isAuthenticated) ? <div className="notification-icon-wrapper">
+            {(notifications) ? <div className="notification-icon-wrapper">
                 <NewReleasesIcon className="notifications-icon" color="action" fontSize={'large'}
                                  onClick={() => {
                                      navigateToBoard();
