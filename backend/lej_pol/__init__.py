@@ -3,13 +3,13 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask_socketio import SocketIO
+# from flask_socketio import SocketIO
 
 from lej_pol.db.db_init import db
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
-socketio = SocketIO(cors_allowed_origins="*")
+# socketio = SocketIO(cors_allowed_origins="*", logger=True)
 
 
 def create_app():
@@ -41,8 +41,7 @@ def create_app():
 
     db.init_app(app)
     CORS(app)
-    socketio.init_app(app)
+    # socketio.init_app(app)
     Migrate(app, db)
-
 
     return app

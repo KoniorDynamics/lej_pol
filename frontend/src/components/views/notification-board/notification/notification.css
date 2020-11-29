@@ -15,6 +15,10 @@
     background: #fcf6cf;
 }
 
+.card.warning {
+    background: #ff2839;
+}
+
 .card.marketplace {
     background: #ddfcd3;
 }

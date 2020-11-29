@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Zgłaszanie zanieczyszczenia wody</title>
+        <title>CMS dla zgłaszania wiadomości</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -25,8 +25,6 @@
       <div class="container">
         <div class="navbar-header">
 
-          <a class="navbar-brand" href="{{ url_for('alert.get_alert_impurity') }}">Zgłaszanie zanieczyszczenia wody</a>
-             <a class="navbar-brand" href="{{ url_for('alert.get_alert_leak') }}">Zgłaszanie Nieszczelności Układu</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
@@ -37,24 +35,13 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h2>Wyślij informacje</h2>
-        <p>Proszę potwierdzić informacje</p>
-
-        <form action="{{ url_for('alert.get_alert_impurity') }}" method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.station_name.label }}
-                {{ form.station_name(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.description.label }}
-                {{ form.description(class="form-control", rows="3") }}
-            </div>
-            <hr>
-            {{ form.submit(class="btn btn-primary form-control") }}
-        </form>
-
-
+        <h2>Wybierz formularz do wysłania</h2>
+          <div class="navbar navbar-inverse">
+            <a class="navbar-brand" href="{{ url_for('alert.get_alert_impurity') }}">Zgłaszanie zanieczyszczenia wody</a>
+          </div>
+          <div class="navbar navbar-inverse">
+             <a class="navbar-brand" href="{{ url_for('alert.get_alert_leak') }}">Zgłaszanie Nieszczelności Układu</a>
+          </div>
         </div>
       </div>
 
