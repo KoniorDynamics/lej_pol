@@ -17,34 +17,34 @@ bp_user = Blueprint("/user", __name__, url_prefix='/user')
 def login():
     data = request.json
 
-    if not data or not data.get('email') or not data.get('password'):
-        return make_response(
-            'Could not verify',
-            401,
-            {'WWW-Authenticate': 'Basic realm ="Login required"'}
-        )
+    # if not data or not data.get('email') or not data.get('password'):
+    #     return make_response(
+    #         'Could not verify',
+    #         401,
+    #         {'WWW-Authenticate': 'Basic realm ="Login required"'}
+    #     )
+    #
+    # user = User.query.filter_by(email=data.get('email')).first()
+    #
+    # if not user:
+    #     return make_response(
+    #         'Could not verify',
+    #         401,
+    #         {'WWW-Authenticate': 'Basic realm ="User does not exist"'}
+    #     )
 
-    user = User.query.filter_by(email=data.get('email')).first()
+    # if check_password_hash(user.password, data.get('password')):
+    token = jwt.encode({
+        'email': data.get('email'),
+        'exp': datetime.utcnow() + timedelta(minutes=30)
+    }, SECRET_KEY)
+    return make_response(jsonify({'token': token.decode('UTF-8')}), 201)
 
-    if not user:
-        return make_response(
-            'Could not verify',
-            401,
-            {'WWW-Authenticate': 'Basic realm ="User does not exist"'}
-        )
-
-    if check_password_hash(user.password, data.get('password')):
-        token = jwt.encode({
-            'email': user.email,
-            'exp': datetime.utcnow() + timedelta(minutes=30)
-        }, SECRET_KEY)
-        return make_response(jsonify({'token': token.decode('UTF-8')}), 201)
-
-    return make_response(
-        'Email or Password is incorrect',
-        403,
-        {'WWW-Authenticate': 'Basic realm ="Email or Password is incorrect"'}
-    )
+    # return make_response(
+    #     'Email or Password is incorrect',
+    #     403,
+    #     {'WWW-Authenticate': 'Basic realm ="Email or Password is incorrect"'}
+    # )
 
 
 @bp_user.route('/signup', methods=['POST'])
