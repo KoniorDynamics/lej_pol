@@ -1,5 +1,6 @@
 import time
 from datetime import datetime
+import random
 
 from flask import Blueprint, jsonify
 
@@ -7,9 +8,30 @@ from lej_pol import db
 from lej_pol.helpers.ml_helpers import predict
 from lej_pol.models import Event
 
-bp_notification = Blueprint("notification", __name__, url_prefix='/notification')
+bp_notification = Blueprint("notification", __name__, url_prefix='/')
 
-QUEUE = []
+STATS = {
+    "points": 50,
+    "water_usage": 0,
+    "water_cost": 0
+}
+
+QUEUE = [{
+    "timestamp": int(round(time.time() * 1000) - 180),
+    "type": 'stats',
+    "title": 'Zobacz swoje zużycie wody w tym tygodniu:',
+    "data": [
+        ['Data', 'Zużycie wody'],
+        ['22.11', 0.0198],
+        ['23.11', 0.1234],
+        ['24.11', 0.1274],
+        ['25.11', 0.1652],
+        ['26.11', 0.1997],
+        ['27.11', 0.0705],
+        ['28.11', 0.2400],
+
+    ]
+}]
 
 DICT_ELEMENTS_START = {
     "tap": "Odkręciłes kran",
@@ -41,7 +63,7 @@ PRICE = 11.11
 
 
 def send_notification(row):
-    time.sleep(10)
+    time.sleep(10)  # TODO remove
     x = predict(row)
 
     finish = 0
@@ -53,7 +75,6 @@ def send_notification(row):
             finish = 1
             time_finish = int(n)
 
-    print('tutaj', finish, time_finish)
     obj = Event.query.order_by(-Event.id).first()
 
     if 'element2' in x.keys() and (obj is None or obj.price is not None):
@@ -95,6 +116,10 @@ def send_notification(row):
                 'details': f"{DICT_ELEMENTS_END[x['element1']]}{time_finish} min, zużyto {round(sum_values, 5)} m3 wody i kosztowało to {round(sum_values * PRICE, 2)} zł",
             }
 
+            STATS['points'] += random.randint(0, 17)
+            STATS['water_usage'] += sum_values
+            STATS['water_cost'] += round(sum_values * PRICE, 2)
+
             QUEUE.append(notification)
         else:
             event = Event(
@@ -123,11 +148,23 @@ def send_notification(row):
                 'details': f"{DICT_ELEMENTS_END[obj.event_type]}{obj.event_duration} min, zużyto {round(obj.flow, 5)} m3 wody i kosztowało to {round(obj.price, 2)} zł",
             }
 
+            STATS['points'] += random.randint(0, 17)
+            STATS['water_usage'] += round(obj.flow, 5)
+            STATS['water_cost'] += round(obj.price, 2)
+
             QUEUE.append(notification)
             return True
 
 
-@bp_notification.route("/", methods=["GET"])
+@bp_notification.route("/notification", methods=["GET"])
 def get_notification():
     x = QUEUE
+    return jsonify(x)
+
+
+@bp_notification.route("/user/stats", methods=["GET"])
+def get_stats():
+    STATS['water_usage'] = round(STATS['water_usage'], 5)
+    STATS['water_cost'] = round(STATS['water_cost'], 2)
+    x = STATS
     return jsonify(x)
