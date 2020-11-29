@@ -68,7 +68,7 @@ const Market = () => {
                                 <img className="market-item-photo" src={marketItem.photoUrl}/>
                                 <Button onClick={() => {
                                     buyAnItem(marketItem.price);
-                                }} disabled={marketItem.price > points} variant="contained" color="primary">Biere!</Button>
+                                }} disabled={marketItem.price > points} variant="contained" color="primary">Odbierz!</Button>
                             </Card>
                         )
                     }

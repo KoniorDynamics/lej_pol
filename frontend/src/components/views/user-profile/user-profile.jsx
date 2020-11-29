@@ -91,7 +91,7 @@ const UserProfile = () => {
                 <p className="user-profile-subtitle">Ustawienia:</p>
                 <div className="settings-buttons-box">
                     <Button variant="contained" color="primary" onClick={() => {openChangePasswordModal()}}>Zmień hasło</Button>
-                    <Button variant="contained" color="primary" onClick={() => {openBlowUpLondonModal()}}>Wysadź Londyn</Button>
+
                 </div>
             </div>
             <Modal open={showModal} modalContent={modalConfig.content} modalTitle={modalConfig.title} handleClose={closeModal}></Modal>
