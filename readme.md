@@ -9,17 +9,7 @@
   <h3 align="center">LILIA</h3>
 
   <p align="center">Myśli o wodzie
-    <br />
-    <a href="https://github.com/KoniorDynamics/lej_pol"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/KoniorDynamics/lej_pol">View Demo</a>
-    ·
-    <a href="https://github.com/KoniorDynamics/lej_pol">Report Bug</a>
-    ·
-    <a href="https://github.com/KoniorDynamics/lej_pol/issues">Request Feature</a>
-  </p>
-</p>
+
 
 
 
