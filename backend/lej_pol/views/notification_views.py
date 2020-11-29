@@ -84,7 +84,7 @@ def send_notification(row):
                 'timestamp': int(round(time.time() * 1000)),
                 'type': "standard",
                 'title': "Koniec działania",
-                'details': f"{DICT_ELEMENTS_END[x['element1']]}{time_finish} min, zużyto {round(sum_values, 5)} m3 wody i kosztowało to {round(sum_values * PRICE, 2)} zł",
+                'details': f"{DICT_ELEMENTS_END[x['element1']]} min, zużyto {round(sum_values, 5)} m3 wody i kosztowało to {round(sum_values * PRICE, 2)} zł",
             }
             QUEUE.append(notification)
 
@@ -118,7 +118,7 @@ def send_notification(row):
                 'timestamp': int(round(time.time() * 1000)),
                 'type': "standard",
                 'title': "Koniec działania",
-                'details': f"{DICT_ELEMENTS_END[obj.event_type]}{obj.event_duration} min, zużyto {round(obj.flow, 5)} m3 wody i kosztowało to {round(obj.price, 2)} zł",
+                'details': f"{DICT_ELEMENTS_END[obj.event_type]} min, zużyto {round(obj.flow, 5)} m3 wody i kosztowało to {round(obj.price, 2)} zł",
             }
             QUEUE.append(notification)
 
