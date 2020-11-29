@@ -9,7 +9,7 @@ const Header = ({notifications, isAuthenticated}) => {
     const history = useHistory();
 
     const navigateToBoard = () => {
-        history.push('/board');
+        history.push('/authenticated/board');
     };
 
     return (

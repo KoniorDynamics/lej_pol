@@ -8,7 +8,7 @@ import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 import Spinner from "../../shared/spinner/spinner";
 
-const Authentication = ({setAuthenticationState}) => {
+const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTimeAppUsage}) => {
 
     const history = useHistory();
 
@@ -24,7 +24,12 @@ const Authentication = ({setAuthenticationState}) => {
             .then((response) => {
                 setToken(response.data.token);
                 setAuthenticationState(true);
-                history.push('flowmeter-selection');
+                if (firstTimeAppUsage) {
+                    setFirstTimeAppUsage(false);
+                    history.push('flowmeter-selection');
+                } else {
+                    history.push('/authenticated/board');
+                }
             })
             .catch(() => {
                 alert('pupa');

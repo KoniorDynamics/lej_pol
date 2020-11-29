@@ -3,10 +3,25 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .card.stats {
     background: #fcdad5;
+}
+
+.card.badge {
+    background: #fcf6cf;
+}
+
+.card.marketplace {
+    background: #ddfcd3;
+}
+
+.marketplace-photo {
+    width: 200px;
+    margin: 20px auto;
 }
 
 .notification-separator {

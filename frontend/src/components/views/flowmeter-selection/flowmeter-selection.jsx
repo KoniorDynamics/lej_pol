@@ -16,7 +16,7 @@ const FlowmeterSelection = () => {
     }, []);
 
     const selectFlowmeter = () => {
-        history.push('/board');
+        history.push('/authenticated/board');
     };
 
     return (

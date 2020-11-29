@@ -24,39 +24,58 @@ function App() {
     const [unreadNotificationsNumber, setUnreadNotificationsNumber] = useState(0);
     const [showModal, setModalState] = useState(false);
     const [firstFetch, setFirstFetchState] = useState(true);
+    const [firstTimeAppUsage, setFirstTimeAppUsage] = useState(true);
     const [modalConfig, setModalConfig] = useState({
         title: '',
         content: null
     });
     const [notifications, setNotifications] = useState([
         {
-            timestamp: Date.now() - 3600000,
-            type: 'activityStart',
+            timestamp: Date.now() - 36007,
+            type: 'standard',
             title: 'Włączyłeś pralkę!'
         },
         {
-            timestamp: Date.now() - 2700000,
-            type: 'activityFinished',
+            timestamp: Date.now() - 36,
+            type: 'badge',
+            title: 'Zdobyłeś odznakę!',
+            badge: 'szklanka'
+        },
+        {
+            timestamp: Date.now() - 27000000,
+            type: 'badge',
+            title: 'Zdobyłeś odznakę!',
+            badge: 'drzewko'
+        },
+        {
+            timestamp: Date.now() - 36000,
+            type: 'marketplace',
+            title: 'Obczaj ten nowy bajer w marketplace!',
+            photoUrl: 'https://dentaltree.pl/userdata/public/gfx/c85682bbc4eb215b778463eb85d7b71c.jpg'
+        },
+        {
+            timestamp: Date.now() - 27007,
+            type: 'standard',
             title: 'Pranie się skończyło!',
             details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
         }, {
             timestamp: Date.now() - 36000000,
-            type: 'activityStart',
+            type: 'standard',
             title: 'Włączyłeś pralkę!'
         },
         {
             timestamp: Date.now() - 27000000,
-            type: 'activityFinished',
+            type: 'standard',
             title: 'Pranie się skończyło!',
             details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
         }, {
             timestamp: Date.now() - 360000000,
-            type: 'activityStart',
+            type: 'standard',
             title: 'Włączyłeś pralkę!'
         },
         {
             timestamp: Date.now() - 270000000,
-            type: 'activityFinished',
+            type: 'standard',
             title: 'Pranie się skończyło!',
             details: 'Twoje pranie trwało 15 minut i kosztowało Cię 70 gr!'
         }
@@ -103,7 +122,7 @@ function App() {
                 setUnreadNotificationsNumber(unreadNotificationsNumber + i);
             }
             setNotifications([...notifications, newNotification]);
-        }, 16000)
+        }, 26000)
     }, []);
 
     const showMenu = () => {
@@ -122,44 +141,53 @@ function App() {
                     <Modal open={showModal} handleClose={() => {
                         closeModal();
                     }} modalTitle={modalConfig.title} modalContent={modalConfig.content}></Modal>
-                    <Container className="content-container">
-                        <Switch>
-                            <Route
-                                exact
-                                path="/"
-                                render={() => {
-                                    return (
-                                        isAuthenticated ?
-                                            <Redirect to="/board"/> :
-                                            <Redirect to="/authenticate"/>
-                                    )
-                                }}
-                            />
-                            <Route path="/authenticate">
-                                <Authentication setAuthenticationState={setAuthenticationState}/>
-                            </Route>
-                            <Route path="/flowmeter-selection">
+                    <Switch>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => {
+                                return (
+                                    isAuthenticated ?
+                                        <Redirect to="/board"/> :
+                                        <Redirect to="/authenticate"/>
+                                )
+                            }}
+                        />
+                        <Route path="/authenticate">
+                            <Container className="content-container">
+                                <Authentication setAuthenticationState={setAuthenticationState}
+                                                firstTimeAppUsage={firstTimeAppUsage}
+                                                setFirstTimeAppUsage={setFirstTimeAppUsage}/>
+                            </Container>
+                        </Route>
+                        <Route path="/flowmeter-selection">
+                            <Container className="content-container">
                                 <FlowmeterSelection/>
+                            </Container>
+                        </Route>
+                        <Route path="/authenticated">
+                            <BottomNav setAuthenticationState={setAuthenticationState}></BottomNav>
+                            <Route path="/authenticated/board">
+                                <Container className="content-container">
+                                    <NotificationBoard notifications={notifications} resetUnreadNotificationNumber={
+                                        () => {
+                                            setUnreadNotificationsNumber(0)
+                                        }
+                                    }/>
+                                </Container>
                             </Route>
-                            <Route path="/board">
-                                <NotificationBoard notifications={notifications} resetUnreadNotificationNumber={
-                                    () => {
-                                        setUnreadNotificationsNumber(0)
-                                    }
-                                }/>
+                            <Route path="/authenticated/profile">
+                                <Container className="content-container">
+                                    <UserProfile/>
+                                </Container>
                             </Route>
-                            <Route path="/profile">
-                                <UserProfile/>
+                            <Route path="/authenticated/market">
+                                <Container className="content-container">
+                                    <Market/>
+                                </Container>
                             </Route>
-                            <Route path="/market">
-                                <Market/>
-                            </Route>
-                        </Switch>
-                    </Container>
-                    {showMenu() ?
-                        <BottomNav setAuthenticationState={setAuthenticationState}></BottomNav>
-                        :
-                        null}
+                        </Route>
+                    </Switch>
                 </Router>
             )
         })()}></Wrapper>

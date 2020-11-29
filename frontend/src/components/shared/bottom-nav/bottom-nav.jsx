@@ -23,7 +23,7 @@ const BottomNav = ({setAuthenticationState}) => {
 
     const logout = () => {
         setAuthenticationState(false);
-        history.push('/');
+        history.push('/authenticate');
     };
 
     return (
@@ -34,9 +34,9 @@ const BottomNav = ({setAuthenticationState}) => {
             showLabels
             className={classes.root}
         >
-            <BottomNavigationAction label="Powiadomienia" value="board" icon={<AccessAlarm/>}/>
-            <BottomNavigationAction label="Profil" value="profile" icon={<AccountCircleIcon/>}/>
-            <BottomNavigationAction label="Market" value="market" icon={<ShopIcon/>}/>
+            <BottomNavigationAction label="Powiadomienia" value="/authenticated/board" icon={<AccessAlarm/>}/>
+            <BottomNavigationAction label="Profil" value="/authenticated/profile" icon={<AccountCircleIcon/>}/>
+            <BottomNavigationAction label="Market" value="/authenticated/market" icon={<ShopIcon/>}/>
             <BottomNavigationAction label="Wyloguj" icon={<ExitToAppIcon/>} onClick={logout}/>
         </BottomNavigation>
     )
