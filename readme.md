@@ -3,7 +3,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/KoniorDynamics/lej_pol">
-    <img src="images/lilia.png" alt="Logo" width="80" height="80">
+    <img src="images/lilia.png" alt="Logo" width="375" height="124">
   </a>
 
   <h3 align="center">LILIA</h3>
@@ -23,21 +23,20 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
+<!-- Spis treści -->
+## Spis treści
 
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
+* [O PROJEKCIE](#o-projekcie)
+  * [Technologie](#technologie)
+* [Jak rozpocząć?](#jak-rozpocząć)
+  * [Narzędzia](#narzędzia)
 * [Roadmap](#roadmap)
 
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- O PROJEKCIE -->
+## O PROJEKCIE
 
 Aplikacja "Lilia" to system inteligentnego zarządzania wodą w domu.
 
@@ -51,6 +50,10 @@ Punkty i otrzymane badge użytkownik może wydać w dedykowanym marketplace. Osz
 ### Built With
 * [React](https://reactjs.org/)
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+* [xGBoost](https://xgboost.readthedocs.io/en/latest/)
+* [PostreSQL](https://www.postgresql.org/)
+* [Docker](https://www.docker.com/)
+* [Kubernetes](https://kubernetes.io/pl/)
 
 
 
@@ -65,35 +68,28 @@ To get a local copy up and running follow these simple example steps.
 
 3. Press Enter. Your local clone will be created.
 
-### Build DB
-
-3. _(sudo - optional)_  docker-compose exec backend flask db init
-4. _(sudo - optional)_  docker-compose exec backend flask db migrate -m "init migration"
-5. _(sudo - optional)_  docker-compose exec backend flask db upgrade
-
 ### Start docker container
 
-6. _(sudo - optional)_ docker-compose up --build 
-7. _(sudo - optional)_ docker-compose build --no-cache _**-to run without catche**_
-
-_If not try_ --build _individual separately: _ backend, frontend, water_matter
-
-### Ports
-
-Licznik: localhost:3002
-MLModel: localhost:8000
-Frontend: localhost:3001
-Backend: localhost:5000
-
-### Prerequisites
-
-[Here](https://github.com/KoniorDynamics/lej_pol/blob/master/backend/requirements.txt) you find all need software.
+4. _(sudo - optional)_ docker-compose up --build 
 
 
+### Build DB
+
+5. _(sudo - optional)_  docker-compose exec backend flask db init
+6. _(sudo - optional)_  docker-compose exec backend flask db migrate -m "init migration"
+7. _(sudo - optional)_  docker-compose exec backend flask db upgrade
 
 
-<!-- ROADMAP -->
-## Roadmap
+### Porty
 
-See the [open issues](https://github.com/KoniorDynamics/lej_pol/issues) for a list of proposed features (and known issues).
+- Licznik: localhost:3002
+- MLModel: localhost:8000
+- Frontend: localhost:3001
+- Backend: localhost:5000
+
+### Narzędzia
+
+[Here](https://github.com/KoniorDynamics/lej_pol/blob/master/backend/requirements.txt) wszystkie wymagane paczki.
+
+
 
