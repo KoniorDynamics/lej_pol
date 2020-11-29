@@ -22,7 +22,8 @@ const NotificationBoard = ({notifications, resetUnreadNotificationNumber}) => {
             notification => {
                 let filteringResult;
                 for (const property in notification) {
-                    if (notification[property] && notification[property].includes && notification[property].includes(filterQuery)) {
+                    if ((notification[property] && notification[property].includes && notification[property].includes(filterQuery)) ||
+                        (notification[property] && notification[property].toLowerCase && notification[property].toLowerCase().includes(filterQuery.toLowerCase()))) {
                         filteringResult = true;
                     }
                 }

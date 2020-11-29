@@ -53,16 +53,56 @@ const Notification = ({notification}) => {
                             Marketu</Button>
                     </>
                 );
+            case 'decision':
+                return (
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around'}}>
+                        {notification.options.map(
+                            (option, i) => {
+                                return (
+                                    <Button className="decision-buttons" key={i} variant="contained" color="primary" onClick={() => {
+                                        selectUsageOption(option)
+                                    }}>
+                                        {getUserFriendlyUsageNames(option)}
+                                    </Button>
+                                );
+                            }
+                        )}
+                    </div>
+                );
             default:
                 return null;
         }
-    }
+    };
+
+    const getUserFriendlyUsageNames = (unfriendlyUsageOption) => {
+        const usagesArray = unfriendlyUsageOption.split(' + ');
+        return usagesArray.map(
+            unfriendlyUsageName => {
+                switch (unfriendlyUsageName) {
+                    case 'shower':
+                        return 'prysznic';
+                    case 'tap':
+                        return 'kran';
+                    case 'washingMachine':
+                        return 'pranie';
+                    case 'dishwasher':
+                        return 'zmywarka';
+                    default:
+                        return 'Nie powiem.'
+                }
+            }
+        ).join(' i ');
+    };
+
+    const selectUsageOption = (option) => {
+        // todo tu będziemy wysyłać do bakiendu tę decyzję
+    };
 
     return (
         <Card className={'card ' + notification.type}>
             <span className="time">{new Date(notification.timestamp).toLocaleTimeString()}</span>
             <p className="title">{notification.title}</p>
-            {notification.details && <p className="details">{notification.details}</p>}
+            {notification.details ? <p className="details">{notification.details}</p> : null}
             {getAdditionalContent()}
         </Card>
     );

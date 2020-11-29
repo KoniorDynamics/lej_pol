@@ -12,7 +12,8 @@ const useStyles = makeStyles({
     root: {
         width: '100%',
         position: 'absolute',
-        bottom: 0
+        bottom: 0,
+        zIndex: 69
     },
 });
 

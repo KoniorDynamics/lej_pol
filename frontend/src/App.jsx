@@ -36,6 +36,16 @@ function App() {
             title: 'Włączyłeś pralkę!'
         },
         {
+            "details": "Jeszcze się uczę! Podpowiedz mi co teraz robiłeś?",
+            "options": [
+                "dishwasher + tap",
+                "shower + dishwasher"
+            ],
+            "timestamp": 1606609832620,
+            "title": "A co to?",
+            "type": "decision"
+        },
+        {
             timestamp: Date.now() - 36,
             type: 'badge',
             title: 'Zdobyłeś odznakę!',
@@ -101,7 +111,7 @@ function App() {
 
     useEffect(() => {
         let i = 0;
-        setInterval(() => {
+        setTimeout(() => {
             i++;
             const newNotification = {
                 timestamp: Date.now() - 50,
@@ -122,7 +132,7 @@ function App() {
                 setUnreadNotificationsNumber(unreadNotificationsNumber + i);
             }
             setNotifications([...notifications, newNotification]);
-        }, 26000)
+        }, 13000)
 
     }, []);
 

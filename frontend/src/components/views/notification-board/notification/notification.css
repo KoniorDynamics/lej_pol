@@ -45,3 +45,7 @@
 .details {
     margin: 0;
 }
+
+button.decision-buttons:not(:last-child) {
+    margin: 20px 0;
+}
