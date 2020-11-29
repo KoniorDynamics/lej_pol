@@ -44,8 +44,8 @@ function App() {
         }
         if ((prevNotificationAmount.current !== notifications.length) && prevNotificationAmount.current) {
             console.log(window.location.href);
-            console.log(window.location.href.includes('authenticate'));
-            if (window.location.href.includes('authenticate') ||
+            console.log(window.location.href.includes('authentication'));
+            if (window.location.href.includes('authentication') ||
                 window.location.href.includes('flowmeter-selection')) {
                 return;
             }
@@ -102,7 +102,7 @@ function App() {
     };
 
     const showMenu = () => {
-        return !window.location.href.includes('authenticate') && !window.location.href.includes('flowmeter-selection');
+        return !window.location.href.includes('authentication') && !window.location.href.includes('flowmeter-selection');
     };
 
     const closeModal = () => {
@@ -125,11 +125,11 @@ function App() {
                                 return (
                                     isAuthenticated ?
                                         <Redirect to="/board"/> :
-                                        <Redirect to="/authenticate"/>
+                                        <Redirect to="/authentication"/>
                                 )
                             }}
                         />
-                        <Route path="/authenticate">
+                        <Route path="/authentication">
                             <Container className="content-container">
                                 <Authentication setAuthenticationState={setAuthenticationState}
                                                 firstTimeAppUsage={firstTimeAppUsage}

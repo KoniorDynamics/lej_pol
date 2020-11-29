@@ -24,7 +24,7 @@ const BottomNav = ({setAuthenticationState}) => {
 
     const logout = () => {
         setAuthenticationState(false);
-        history.push('/authenticate');
+        history.push('/authentication');
     };
 
     return (
