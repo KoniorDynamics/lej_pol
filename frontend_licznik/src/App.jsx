@@ -40,7 +40,7 @@ function App() {
             change += 1;
             setRotation(rotation + change);
             if (change % 100 === 0) {
-                sendFlowData(JSON.stringify({time: Date.now(), flow: flowProfiles[waterUsage](change*10)}));
+                sendFlowData({time: Date.now(), flow: flowProfiles[waterUsage](change*10)});
             }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10);
@@ -60,7 +60,7 @@ function App() {
             change += 1;
             setRotation(rotation + change);
             if (change % 100 === 0) {
-                sendFlowData(JSON.stringify({time: Date.now(), flow: flowProfiles.tap()}));
+                sendFlowData({time: Date.now(), flow: flowProfiles.tap()});
             }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10));

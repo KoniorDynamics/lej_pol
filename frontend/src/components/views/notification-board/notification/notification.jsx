@@ -83,7 +83,7 @@ const Notification = ({notification}) => {
                         return 'prysznic';
                     case 'tap':
                         return 'kran';
-                    case 'washingMachine':
+                    case 'washing machine':
                         return 'pranie';
                     case 'dishwasher':
                         return 'zmywarka';
