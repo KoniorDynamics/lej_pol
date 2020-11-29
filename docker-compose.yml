@@ -59,6 +59,3 @@ services:
       - POSTGRES_DB=flask_dev
 volumes:
   postgres_data:
-networks:
-  flasknet:
-    driver: bridge

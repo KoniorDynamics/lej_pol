@@ -16,13 +16,13 @@
                     console.log(data.msg)
 
                 });
-                socket.on('message', function(data) {
+                socket.on('msg', function(data) {
                     console.log(data.msg)
                 });
 
                 document.querySelector('button').addEventListener('click', () => {
                     console.log('send')
-                     socket.emit('connected', {'key': 'val'});
+                     socket.emit('msg', {'key': 'val'});
                 })
             });
 
