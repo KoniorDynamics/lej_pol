@@ -46,9 +46,9 @@ def send_notification(row):
             finish = 1
             time_finish = int(n)
 
-    obj = Event.query.order_by(-Event.id).first()
+    # obj = Event.query.order_by(-Event.id).first()
 
-    if 'element2' in x.keys() and (obj is None or obj.price is not None):
+    if 'element2' in x.keys():
         notification = {
             'timestamp': int(round(time.time() * 1000)),
             'type': "decision",
@@ -60,75 +60,75 @@ def send_notification(row):
         QUEUE.append(notification)
         return True
 
-    if obj is None or obj.price is not None:
+    # if obj is None or obj.price is not None:
+    notification = {
+        'timestamp': int(round(time.time() * 1000)),
+        'type': "standard",
+        'title': "Początek działania",
+        'details': DICT_ELEMENTS_START[x['element1']],
+    }
+
+    QUEUE.append(notification)
+    if finish == 1:
+        # event = Event(
+        #     event_start=datetime.now(),
+        #     flow=sum_values,
+        #     event_type=x['element1'],
+        #     price=sum_values * PRICE,
+        #     event_duration=time_finish
+        # )
+        # db.session.add(event)
+        # db.session.commit()
+
         notification = {
             'timestamp': int(round(time.time() * 1000)),
             'type': "standard",
-            'title': "Początek działania",
-            'details': DICT_ELEMENTS_START[x['element1']],
+            'title': "Koniec działania",
+            'details': f"{DICT_ELEMENTS_END[x['element1']]} min, zużyto {round(sum_values, 5)} m3 wody i kosztowało to {round(sum_values * PRICE, 2)} zł",
         }
-
         QUEUE.append(notification)
-        if finish == 1:
-            event = Event(
-                event_start=datetime.now(),
-                flow=sum_values,
-                event_type=x['element1'],
-                price=sum_values * PRICE,
-                event_duration=time_finish
-            )
-            db.session.add(event)
-            db.session.commit()
 
-            notification = {
-                'timestamp': int(round(time.time() * 1000)),
-                'type': "standard",
-                'title': "Koniec działania",
-                'details': f"{DICT_ELEMENTS_END[x['element1']]} min, zużyto {round(sum_values, 5)} m3 wody i kosztowało to {round(sum_values * PRICE, 2)} zł",
-            }
-            QUEUE.append(notification)
+        STATS['points'] += random.randint(1, 17)
+        STATS['water_usage'] += sum_values
+        STATS['water_cost'] += round(sum_values * PRICE, 2)
 
-            STATS['points'] += random.randint(1, 17)
-            STATS['water_usage'] += sum_values
-            STATS['water_cost'] += round(sum_values * PRICE, 2)
+        add_badge()
 
-            add_badge()
-
-        else:
-            event = Event(
-                event_start=datetime.now(),
-                flow=sum_values,
-                event_type=x['element1'],
-            )
-            db.session.add(event)
-            db.session.commit()
+    # else:
+    #     event = Event(
+    #         event_start=datetime.now(),
+    #         flow=sum_values,
+    #         event_type=x['element1'],
+    #     )
+    #     db.session.add(event)
+    #     db.session.commit()
         return True
 
-    elif obj.price is None:
-        obj.flow += sum_values
-        db.session.commit()
-
-        if finish == 1:
-            obj.price = obj.flow * PRICE,
-            obj.event_duration = (datetime.now() - obj.event_start).total_seconds()
-
-            db.session.commit()
-
-            notification = {
-                'timestamp': int(round(time.time() * 1000)),
-                'type': "standard",
-                'title': "Koniec działania",
-                'details': f"{DICT_ELEMENTS_END[obj.event_type]} min, zużyto {round(obj.flow, 5)} m3 wody i kosztowało to {round(obj.price, 2)} zł",
-            }
-            QUEUE.append(notification)
-
-            STATS['points'] += random.randint(1, 17)
-            STATS['water_usage'] += round(obj.flow, 5)
-            STATS['water_cost'] += round(obj.price, 2)
-
-            add_badge()
-
-            return True
+# elif obj.price is None:
+# obj.flow += sum_values
+# db.session.commit()
+#
+# if finish == 1:
+#     obj.price = obj.flow * PRICE,
+#     obj.event_duration = (datetime.now() - obj.event_start).total_seconds()
+#
+#     db.session.commit()
+#
+#     notification = {
+#         'timestamp': int(round(time.time() * 1000)),
+#         'type': "standard",
+#         'title': "Koniec działania",
+#         'details': f"{DICT_ELEMENTS_END[obj.event_type]} min, zużyto {round(obj.flow, 5)} m3 wody i kosztowało to {round(obj.price, 2)} zł",
+#     }
+#     QUEUE.append(notification)
+#
+#     STATS['points'] += random.randint(1, 17)
+#     STATS['water_usage'] += round(obj.flow, 5)
+#     STATS['water_cost'] += round(obj.price, 2)
+#
+#     add_badge()
+#
+#     return True
 
 
 def add_badge():
