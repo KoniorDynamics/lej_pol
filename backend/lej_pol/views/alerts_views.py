@@ -19,6 +19,11 @@ def get_alerts():
     return jsonify(json_list=[i.serialize for i in data])
 
 
+@bp_alerts.route("/cms", methods=["GET"])
+def get_cms():
+    return render_template('alert_cms.html')
+
+
 @bp_alerts.route('/leak', methods=["GET", "POST"])
 def get_alert_leak():
     form = AlertLeakForm(request.form)
