@@ -6,6 +6,7 @@ from flask import Blueprint, jsonify
 
 from lej_pol import db
 from lej_pol.helpers.ml_helpers import predict
+from lej_pol.helpers.notifications_helpers import DICT_ELEMENTS_START, PRICE, DICT_ELEMENTS_END, MARKETPLACE
 from lej_pol.models import Event
 
 bp_notification = Blueprint("notification", __name__, url_prefix='/')
@@ -29,37 +30,8 @@ QUEUE = [{
         ['26.11', 0.1997],
         ['27.11', 0.0705],
         ['28.11', 0.2400],
-
     ]
 }]
-
-DICT_ELEMENTS_START = {
-    "tap": "Odkręciłes kran",
-    "shower": "Zacząłeś prysznic",
-    "dishwasher": "Włączyłeś zmywarkę",
-    "washing machine": "Zacząłeś pranie",
-    "shower + washing machine": "Zacząłeś prysznic i pranie",
-    "shower + dishwasher": "Zacząłeś prysznic i włączyłeś zmywarkę",
-    "shower + tap": "Zacząłeś prysznic i okręciłeś kran",
-    "dishwasher + tap": "Okręciłeś kran i włączyłeś zmywarkę",
-    "tap + washing machine": "Okręciłeś kran i zacząłeś pranie",
-    "dishwasher + washing machine": "Zacząłeś pranie i włączyłeś zmywarkę",
-}
-
-DICT_ELEMENTS_END = {
-    "tap": "Kran chodził ",
-    "shower": "Brałeś prysznic ",
-    "dishwasher": "Zmywarka chodziła ",
-    "washing machine": "Pranie trwało ",
-    "shower + washing machine": "Prysznic i pranie zajęło ",
-    "shower + dishwasher": "Prysznic i zmywarka trwały ",
-    "shower + tap": "Prysznic i kran chodził ",
-    "dishwasher + tap": "Zmywarka i kran chodziły ",
-    "tap + washing machine": "Pranie i kran chodziły ",
-    "dishwasher + washing machine": "Pranie i zmywarka chodziły ",
-}
-
-PRICE = 11.11
 
 
 def send_notification(row):
@@ -115,12 +87,14 @@ def send_notification(row):
                 'title': "Koniec działania",
                 'details': f"{DICT_ELEMENTS_END[x['element1']]}{time_finish} min, zużyto {round(sum_values, 5)} m3 wody i kosztowało to {round(sum_values * PRICE, 2)} zł",
             }
+            QUEUE.append(notification)
 
-            STATS['points'] += random.randint(0, 17)
+            STATS['points'] += random.randint(1, 17)
             STATS['water_usage'] += sum_values
             STATS['water_cost'] += round(sum_values * PRICE, 2)
 
-            QUEUE.append(notification)
+            add_badge()
+
         else:
             event = Event(
                 event_start=datetime.now(),
@@ -147,18 +121,61 @@ def send_notification(row):
                 'title': "Koniec działania",
                 'details': f"{DICT_ELEMENTS_END[obj.event_type]}{obj.event_duration} min, zużyto {round(obj.flow, 5)} m3 wody i kosztowało to {round(obj.price, 2)} zł",
             }
+            QUEUE.append(notification)
 
-            STATS['points'] += random.randint(0, 17)
+            STATS['points'] += random.randint(1, 17)
             STATS['water_usage'] += round(obj.flow, 5)
             STATS['water_cost'] += round(obj.price, 2)
 
-            QUEUE.append(notification)
+            add_badge()
+
             return True
+
+
+def add_badge():
+    if STATS['points'] >= 90:
+        notification = {
+            "timestamp": int(round(time.time() * 1000)),
+            "type": 'badge',
+            "title": 'Zdobyłeś odznakę!',
+            "badge": 'drzewko'
+        }
+        QUEUE.append(notification)
+        return True
+
+    if STATS['points'] >= 80:
+        notification = {
+            "timestamp": int(round(time.time() * 1000)),
+            "type": 'badge',
+            "title": 'Zdobyłeś odznakę!',
+            "badge": 'szklanka'
+        }
+        QUEUE.append(notification)
+        return True
+
+    if STATS['points'] >= 60:
+        notification = {
+            "timestamp": int(round(time.time() * 1000)),
+            "type": 'badge',
+            "title": 'Zdobyłeś odznakę!',
+            "badge": 'kropla'
+        }
+        QUEUE.append(notification)
+        return True
+
+
+def add_marketplace():
+    if random.randint(0, 18) % 3 == 0:
+        select = random.choice(MARKETPLACE)
+        select["timestamp"] = int(round(time.time() * 1000))
+        select["type"] = "marketplace"
+        QUEUE.append(select)
 
 
 @bp_notification.route("/notification", methods=["GET"])
 def get_notification():
     x = QUEUE
+    add_marketplace()
     return jsonify(x)
 
 
