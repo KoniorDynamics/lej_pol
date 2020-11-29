@@ -52,7 +52,6 @@ const Market = () => {
 
     const buyAnItem = (itemPrice) => {
         setPoints(points - itemPrice);
-        alert('Graty kupiłeś sobie cośtam');
     };
 
     return (

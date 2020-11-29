@@ -4,18 +4,24 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import './authentication.css';
-import {useHistory} from 'react-router-dom';
+import {BrowserRouter as Router, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import Spinner from "../../shared/spinner/spinner";
+import Modal from "../../shared/modal/modal";
 
 const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTimeAppUsage}) => {
 
     const history = useHistory();
 
+    const [showModal, setModalState] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const [showSpinner, setSpinnerState] = useState(false);
+    const [modalConfig, setModalConfig] = useState({
+        title: '',
+        content: null
+    });
 
     const authenticate = (event) => {
         setSpinnerState(true);
@@ -31,8 +37,15 @@ const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTime
                     history.push('/authenticated/board');
                 }
             })
-            .catch(() => {
-                alert('pupa');
+            .catch((error) => {
+                setModalConfig({
+                    title: 'Error fest!',
+                    content: (<div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                        <p>Niestety, coś się fest wysypało</p>
+                        <Button variant="contained" color="primary" onClick={closeModal}>Oj :(</Button>
+                    </div>)
+                });
+                setModalState(true);
             })
             .finally(() => {
                 setSpinnerState(false);
@@ -55,15 +68,37 @@ const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTime
         setSpinnerState(true);
         event.preventDefault();
         axios.post('http://127.0.0.1:5000/user/signup', {email, password, name: 'serowyChrupek'})
-            .then(() => {
-                alert('zarejestrowany fest');
+            .then((response) => {
+                if (response.status == 202) {
+                    setModalConfig({
+                        title: 'Takiego już tu mamy!',
+                        content: (<div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                            <p>Użytkownik o takiej nazwie już istnieje.</p>
+                            <Button variant="contained" color="primary" onClick={closeModal}>Ok!</Button>
+                        </div>)
+                    });
+                    setModalState(true);
+                    return;
+                }
+                setModalConfig({
+                    title: 'Sukces!',
+                    content: (<div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                        <p>Teraz się możesz zalogowac i oszczędzać!</p>
+                        <Button variant="contained" color="primary" onClick={closeModal}>Ok!</Button>
+                    </div>)
+                });
+                setModalState(true);
             })
-            .catch(() => {
-                alert('pupa');
+            .catch((error) => {
+                alert(error);
             })
             .finally(() => {
                 setSpinnerState(false);
             });
+    };
+
+    const closeModal = () => {
+        setModalState(false);
     };
 
     return (
@@ -100,7 +135,12 @@ const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTime
                         konto</Button>
                 </form>
             </div>
-            {showSpinner && <Spinner></Spinner>}
+            {showSpinner ? <Spinner></Spinner> : null}
+            {showModal ?
+                <Modal open={showModal} handleClose={() => {
+                    closeModal();
+                }} modalTitle={modalConfig.title} modalContent={modalConfig.content}></Modal> :
+                null}
         </>
     )
 
