@@ -26,7 +26,7 @@ const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTime
     const authenticate = (event) => {
         setSpinnerState(true);
         event.preventDefault();
-        axios.post('http://127.0.0.1:5000/user/login', {email, password})
+        axios.post('http://35.246.205.45:5000/user/login', {email, password})
             .then((response) => {
                 setToken(response.data.token);
                 setAuthenticationState(true);
@@ -67,7 +67,7 @@ const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTime
     const register = (event) => {
         setSpinnerState(true);
         event.preventDefault();
-        axios.post('http://127.0.0.1:5000/user/signup', {email, password, name: 'serowyChrupek'})
+        axios.post('http://35.246.205.45:5000/user/signup', {email, password, name: 'serowyChrupek'})
             .then((response) => {
                 if (response.status == 202) {
                     setModalConfig({
