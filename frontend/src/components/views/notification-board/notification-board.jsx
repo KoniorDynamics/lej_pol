@@ -70,7 +70,7 @@ const NotificationBoard = ({notifications, resetUnreadNotificationNumber}) => {
                 notifications: tempNotificationsObject[date]
             })
         }
-        return separatedNotificationsArray;
+        return separatedNotificationsArray || [];
     };
 
     return (

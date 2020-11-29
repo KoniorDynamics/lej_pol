@@ -11,7 +11,11 @@ const UserProfile = () => {
 
     const [showModal, setModalState] = useState(false);
     const [showSpinner, setSpinnerState] = useState(false);
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState({
+        points: 0,
+        water_cost: 0,
+        water_usage: 0
+    });
     const [modalConfig, setModalConfig] = useState({
         title: '',
         content: null
@@ -21,8 +25,8 @@ const UserProfile = () => {
         setSpinnerState(true);
         axios.get('http://127.0.0.1:5000/user/stats')
             .then(
-                userData => {
-                    setUserData(userData);
+                response => {
+                    setUserData(response.data);
                 }
             )
             .catch(
@@ -72,10 +76,10 @@ const UserProfile = () => {
                 <p className='user-profile-title'>Twój profil:</p>
                 <hr/>
                 <p className='user-profile-subtitle'>Twoje punkty: </p>
-                <p className='user-profile-value'>{userData?.points || 70}</p>
+                <p className='user-profile-value'>{userData.points}</p>
                 <hr/>
                 <p className='user-profile-subtitle'>Od początku miesiąca zużyłeś: </p>
-                <p className='user-profile-value'>{userData?.water_usage || 10} m<sup>3</sup> wody i kosztowało Cię to {userData?.water_cost || 112}zł</p>
+                <p className='user-profile-value'>{userData.water_usage} m<sup>3</sup> wody i kosztowało Cię to {userData.water_cost}zł</p>
                 <hr/>
                 <p className="user-profile-subtitle">Twoje odznaki:</p>
                 <div className="badges-container">

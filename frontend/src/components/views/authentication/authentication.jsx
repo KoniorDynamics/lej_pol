@@ -129,10 +129,10 @@ const Authentication = ({setAuthenticationState, firstTimeAppUsage, setFirstTime
                     />
                     <Button className="authentication-button" type="submit" variant="contained" color="primary"
                             disabled={!email || !password}>Zaloguj</Button>
-                    <Button className="authentication-button" variant="contained" color="primary"
-                            disabled={!email || !password}
-                            onClick={(event) => register(event)}>Załóż
-                        konto</Button>
+                    {/*<Button className="authentication-button" variant="contained" color="primary"*/}
+                    {/*        disabled={!email || !password}*/}
+                    {/*        onClick={(event) => register(event)}>Załóż*/}
+                    {/*    konto</Button>*/}
                 </form>
             </div>
             {showSpinner ? <Spinner></Spinner> : null}
