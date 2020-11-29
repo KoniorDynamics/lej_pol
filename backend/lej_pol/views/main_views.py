@@ -17,7 +17,8 @@ def post_flow():
 
     for n in range(0, len(data), 10):
         data_to_analyze = {}
-        for idx, el in enumerate(data):
+        test = data[n:n+10]
+        for idx, el in enumerate(test):
             data_to_analyze[idx] = [round(el["flow"], 5)]
 
         send_notification({"data": data_to_analyze})
