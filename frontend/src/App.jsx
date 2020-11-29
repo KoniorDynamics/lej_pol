@@ -43,6 +43,12 @@ function App() {
             return;
         }
         if ((prevNotificationAmount.current !== notifications.length) && prevNotificationAmount.current) {
+            console.log(window.location.href);
+            console.log(window.location.href.includes('authenticate'));
+            if (window.location.href.includes('authenticate') ||
+                window.location.href.includes('flowmeter-selection')) {
+                return;
+            }
             if (!window.location.href.includes('board')) {
                 setUnreadNotificationsNumber(notifications.length - prevNotificationAmount.current);
             }
