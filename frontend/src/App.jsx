@@ -123,6 +123,7 @@ function App() {
             }
             setNotifications([...notifications, newNotification]);
         }, 26000)
+
     }, []);
 
     const showMenu = () => {
