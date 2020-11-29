@@ -30,7 +30,6 @@
   * [Technologie](#technologie)
 * [Jak rozpocząć?](#jak-rozpocząć)
   * [Narzędzia](#narzędzia)
-* [Roadmap](#roadmap)
 
 
 
@@ -47,7 +46,7 @@ Zebrane w ten sposób dane pozwalają oszacować ile pieniędzy wydaliśmy na da
 Punkty i otrzymane badge użytkownik może wydać w dedykowanym marketplace. Oszczędzanie wody (a także pieniędzy) pozwala dodatkowo zaoszczędzić kolejne pieniądze otrzymując nagrody i zniżki dla zakupy u partnerów biznesowych, którzy rozumieją konieczność wdrażania ekologicznych rozwiązań. 
 
 
-### Built With
+### Użyte technologie
 * [React](https://reactjs.org/)
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 * [xGBoost](https://xgboost.readthedocs.io/en/latest/)
@@ -57,10 +56,10 @@ Punkty i otrzymane badge użytkownik może wydać w dedykowanym marketplace. Osz
 
 
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- JAK ROZPOCZĄĆ? -->
+## Jak rozpocząć?
 
-To get a local copy up and running follow these simple example steps.
+Aby pobrać aplikacje na swój komputer i ją uruchomić wykonaj następujące czynności:
 
 1. Open Terminal
 
@@ -73,7 +72,7 @@ To get a local copy up and running follow these simple example steps.
 4. _(sudo - optional)_ docker-compose up --build 
 
 
-### Build DB
+### Budowanie Bazy Danych
 
 5. _(sudo - optional)_  docker-compose exec backend flask db init
 6. _(sudo - optional)_  docker-compose exec backend flask db migrate -m "init migration"
@@ -89,7 +88,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Narzędzia
 
-[Here](https://github.com/KoniorDynamics/lej_pol/blob/master/backend/requirements.txt) wszystkie wymagane paczki.
+[Tutaj](https://github.com/KoniorDynamics/lej_pol/blob/master/backend/requirements.txt) wszystkie wymagane paczki.
 
 
 
