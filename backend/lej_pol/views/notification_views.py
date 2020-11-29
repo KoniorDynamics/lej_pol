@@ -133,6 +133,7 @@ def send_notification(row):
 
 def add_badge():
     if STATS['points'] >= 90:
+        add_marketplace()
         notification = {
             "timestamp": int(round(time.time() * 1000)),
             "type": 'badge',
@@ -143,6 +144,7 @@ def add_badge():
         return True
 
     if STATS['points'] >= 80:
+        add_marketplace()
         notification = {
             "timestamp": int(round(time.time() * 1000)),
             "type": 'badge',
@@ -153,6 +155,7 @@ def add_badge():
         return True
 
     if STATS['points'] >= 60:
+        add_marketplace()
         notification = {
             "timestamp": int(round(time.time() * 1000)),
             "type": 'badge',
@@ -164,17 +167,15 @@ def add_badge():
 
 
 def add_marketplace():
-    if random.randint(0, 18) % 3 == 0:
-        select = random.choice(MARKETPLACE)
-        select["timestamp"] = int(round(time.time() * 1000))
-        select["type"] = "marketplace"
-        QUEUE.append(select)
+    select = random.choice(MARKETPLACE)
+    select["timestamp"] = int(round(time.time() * 1000))
+    select["type"] = "marketplace"
+    QUEUE.append(select)
 
 
 @bp_notification.route("/notification", methods=["GET"])
 def get_notification():
     x = QUEUE
-    add_marketplace()
     return jsonify(x)
 
 
