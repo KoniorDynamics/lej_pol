@@ -4,6 +4,7 @@ import Counter from "./components/counter/counter";
 import Rotor from "./components/rotor/rotor.jsx";
 import VolumeMeter from "./components/volume-meter/volume-meter";
 import {flowProfiles} from "./flow-profiles";
+import {mockFlowProfiles} from "./mock-flow-profiles";
 import axios from 'axios';
 
 function App() {
@@ -36,12 +37,13 @@ function App() {
         }
         setWaterFlow(true);
         let change = 0;
+        sendFlowData(mockFlowProfiles[waterUsage]);
         const flowInterval = setInterval(() => {
             change += 1;
             setRotation(rotation + change);
-            if (change % 100 === 0) {
-                sendFlowData({time: Date.now(), flow: flowProfiles[waterUsage](change*10)});
-            }
+            // if (change % 100 === 0) {
+            //     sendFlowData({time: Date.now(), flow: flowProfiles[waterUsage](change*10)});
+            // }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10);
         setTimeout(() => {
@@ -56,12 +58,13 @@ function App() {
         }
         setWaterFlow(true);
         let change = 0;
+        sendFlowData(mockFlowProfiles.tap)
         setTapFlowInterval(setInterval(() => {
             change += 1;
             setRotation(rotation + change);
-            if (change % 100 === 0) {
-                sendFlowData({time: Date.now(), flow: flowProfiles.tap()});
-            }
+            // if (change % 100 === 0) {
+            //     sendFlowData({time: Date.now(), flow: flowProfiles.tap()});
+            // }
             setTotalWaterVolume((parseFloat(totalWaterVolume) + change / 1000000).toFixed(6))
         }, 10));
     };
@@ -77,6 +80,7 @@ function App() {
 
     return (
         <>
+            <p className="title">Wciśnij ikonkę aby zasymulować zużycie wody!</p>
             <Counter handleWaterUse={(waterUsage) => {
                 handleWaterUse(waterUsage)
             }} closeTap={() => {
