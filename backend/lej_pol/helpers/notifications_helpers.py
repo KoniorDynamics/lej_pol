@@ -15,9 +15,9 @@ DICT_ELEMENTS_START = {
 
 DICT_ELEMENTS_END = {
     "tap": "Kran chodził ",
-    "shower": "Brałeś prysznic ",
-    "dishwasher": "Zmywarka chodziła ",
-    "washing machine": "Pranie trwało ",
+    "shower": "Brałeś prysznic 8",
+    "dishwasher": "Zmywarka chodziła 24",
+    "washing machine": "Pranie trwało 17",
     "shower + washing machine": "Prysznic i pranie zajęło ",
     "shower + dishwasher": "Prysznic i zmywarka trwały ",
     "shower + tap": "Prysznic i kran chodził ",
